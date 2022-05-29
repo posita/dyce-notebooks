@@ -1,0 +1,73 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2022-05-29T02:10:09.437624Z",
+      "format": null,
+      "last_modified": "2022-05-29T02:10:09.437624Z",
+      "mimetype": null,
+      "name": "stack-exchange",
+      "path": "stack-exchange",
+      "size": null,
+      "type": "directory",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2022-05-29T02:10:09.421624Z",
+      "format": null,
+      "last_modified": "2022-05-29T02:09:53.277411Z",
+      "mimetype": null,
+      "name": "dev-requirements.in",
+      "path": "dev-requirements.in",
+      "size": 157,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2022-05-29T02:10:09.429624Z",
+      "format": null,
+      "last_modified": "2022-05-29T02:10:09.429624Z",
+      "mimetype": null,
+      "name": "examples",
+      "path": "examples",
+      "size": null,
+      "type": "directory",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2022-05-29T02:10:09.421624Z",
+      "format": null,
+      "last_modified": "2022-05-29T02:09:53.277411Z",
+      "mimetype": "text/plain",
+      "name": "dev-requirements.txt",
+      "path": "dev-requirements.txt",
+      "size": 5387,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2022-05-29T02:10:09.421624Z",
+      "format": null,
+      "last_modified": "2022-05-29T02:09:53.277411Z",
+      "mimetype": "text/markdown",
+      "name": "README.md",
+      "path": "README.md",
+      "size": 415,
+      "type": "file",
+      "writable": true
+    }
+  ],
+  "created": "2022-05-29T02:10:09.429624Z",
+  "format": "json",
+  "last_modified": "2022-05-29T02:10:09.429624Z",
+  "mimetype": null,
+  "name": "",
+  "path": "",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}

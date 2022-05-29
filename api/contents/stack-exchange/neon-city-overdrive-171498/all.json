@@ -1,0 +1,37 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2022-05-29T02:10:09.433625Z",
+      "format": null,
+      "last_modified": "2022-05-29T02:09:53.293412Z",
+      "mimetype": null,
+      "name": "index.ipynb",
+      "path": "stack-exchange/neon-city-overdrive-171498/index.ipynb",
+      "size": 1215902,
+      "type": "notebook",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2022-05-29T02:10:09.433625Z",
+      "format": null,
+      "last_modified": "2022-05-29T02:09:53.293412Z",
+      "mimetype": "text/x-python",
+      "name": "neon_city_overdrive.py",
+      "path": "stack-exchange/neon-city-overdrive-171498/neon_city_overdrive.py",
+      "size": 7631,
+      "type": "file",
+      "writable": true
+    }
+  ],
+  "created": "2022-05-29T02:10:09.433625Z",
+  "format": "json",
+  "last_modified": "2022-05-29T02:10:09.433625Z",
+  "mimetype": null,
+  "name": "neon-city-overdrive-171498",
+  "path": "stack-exchange/neon-city-overdrive-171498",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}

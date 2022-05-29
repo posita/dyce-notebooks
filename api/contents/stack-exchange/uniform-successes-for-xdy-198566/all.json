@@ -1,0 +1,25 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2022-05-29T02:10:09.437624Z",
+      "format": null,
+      "last_modified": "2022-05-29T02:09:53.293412Z",
+      "mimetype": null,
+      "name": "index.ipynb",
+      "path": "stack-exchange/uniform-successes-for-xdy-198566/index.ipynb",
+      "size": 3858,
+      "type": "notebook",
+      "writable": true
+    }
+  ],
+  "created": "2022-05-29T02:10:09.437624Z",
+  "format": "json",
+  "last_modified": "2022-05-29T02:10:09.437624Z",
+  "mimetype": null,
+  "name": "uniform-successes-for-xdy-198566",
+  "path": "stack-exchange/uniform-successes-for-xdy-198566",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}
