@@ -1,10 +1,10 @@
 {
   "jupyter-config-data": {
-    "appName": "dyce Examples",
+    "appName": "dyce",
     "appUrl": "./lab",
     "appVersion": "0.1.0-beta.7",
     "baseUrl": "./",
-    "collaborative": true,
+    "collaborative": false,
     "contentStorageDrivers": [
       "memoryStorageDriver"
     ],
@@ -23,13 +23,6 @@
     "fullMathjaxUrl": "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js",
     "fullStaticUrl": "./build",
     "licensesUrl": "./lab/api/licenses",
-    "litePluginSettings": {
-      "@jupyterlite/pyolite-kernel-extension:kernel": {
-        "pipliteUrls": [
-          "./pypi/all.json?sha256=6e7895fc0038dcab38b721ebc6af4533b11e2b53c121531a0c3fff412c9069b4"
-        ]
-      }
-    },
     "mathjaxConfig": "TeX-AMS_CHTML-full,Safe",
     "preferredPath": "/",
     "settingsStorageDrivers": [
