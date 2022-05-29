@@ -2,21 +2,21 @@
   "content": [
     {
       "content": null,
-      "created": "2022-05-29T21:08:44.815653Z",
+      "created": "2022-05-29T21:11:05.376491Z",
       "format": null,
-      "last_modified": "2022-05-29T21:08:27.479933Z",
+      "last_modified": "2022-05-29T21:10:48.536234Z",
       "mimetype": null,
       "name": "index.ipynb",
       "path": "stack-exchange/dpr-195490/index.ipynb",
-      "size": 2087,
+      "size": 2188,
       "type": "notebook",
       "writable": true
     },
     {
       "content": null,
-      "created": "2022-05-29T21:08:44.815653Z",
+      "created": "2022-05-29T21:11:05.376491Z",
       "format": null,
-      "last_modified": "2022-05-29T21:08:27.479933Z",
+      "last_modified": "2022-05-29T21:10:48.536234Z",
       "mimetype": "text/x-python",
       "name": "calc.py",
       "path": "stack-exchange/dpr-195490/calc.py",
@@ -25,9 +25,9 @@
       "writable": true
     }
   ],
-  "created": "2022-05-29T21:08:44.815653Z",
+  "created": "2022-05-29T21:11:05.376491Z",
   "format": "json",
-  "last_modified": "2022-05-29T21:08:44.815653Z",
+  "last_modified": "2022-05-29T21:11:05.376491Z",
   "mimetype": null,
   "name": "dpr-195490",
   "path": "stack-exchange/dpr-195490",

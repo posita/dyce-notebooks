@@ -2,20 +2,20 @@
   "content": [
     {
       "content": null,
-      "created": "2022-05-29T21:08:44.811653Z",
+      "created": "2022-05-29T21:11:05.376491Z",
       "format": null,
-      "last_modified": "2022-05-29T21:08:27.479933Z",
+      "last_modified": "2022-05-29T21:10:48.536234Z",
       "mimetype": null,
       "name": "index.ipynb",
       "path": "stack-exchange/charges-193353/index.ipynb",
-      "size": 4800,
+      "size": 4905,
       "type": "notebook",
       "writable": true
     }
   ],
-  "created": "2022-05-29T21:08:44.811653Z",
+  "created": "2022-05-29T21:11:05.376491Z",
   "format": "json",
-  "last_modified": "2022-05-29T21:08:44.811653Z",
+  "last_modified": "2022-05-29T21:11:05.376491Z",
   "mimetype": null,
   "name": "charges-193353",
   "path": "stack-exchange/charges-193353",
