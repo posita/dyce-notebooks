@@ -1,5 +1,5 @@
 --requirement build-requirements.txt
-anydyce~=0.1.4
+anydyce~=0.2.0
 debugpy
 line_profiler[ipython]
 pip-tools

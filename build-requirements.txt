@@ -22,7 +22,7 @@ certifi==2022.6.15
     # via requests
 cffi==1.15.1
     # via argon2-cffi-bindings
-charset-normalizer==2.1.0
+charset-normalizer==2.1.1
     # via requests
 cloudpickle==2.1.0
     # via doit
@@ -34,7 +34,6 @@ entrypoints==0.4
     # via
     #   jupyter-client
     #   jupyterlite
-    #   nbconvert
 fastjsonschema==2.16.1
     # via nbformat
 idna==3.3
@@ -48,9 +47,9 @@ jinja2==3.1.2
     #   jupyter-server
     #   jupyterlab-server
     #   nbconvert
-json5==0.9.9
+json5==0.9.10
     # via jupyterlab-server
-jsonschema==4.12.1
+jsonschema==4.14.0
     # via
     #   jupyterlab-server
     #   nbformat
@@ -69,11 +68,11 @@ jupyter-server==1.18.1
     # via jupyterlab-server
 jupyterlab-pygments==0.2.2
     # via nbconvert
-jupyterlab-server==2.15.0
+jupyterlab-server==2.15.1
     # via -r build-requirements.in
 jupyterlab-widgets==1.1.1
     # via -r build-requirements.in
-jupyterlite==0.1.0b9
+jupyterlite==0.1.0b11
     # via -r build-requirements.in
 lxml==4.9.1
     # via nbconvert
@@ -81,11 +80,11 @@ markupsafe==2.1.1
     # via
     #   jinja2
     #   nbconvert
-mistune==0.8.4
+mistune==2.0.4
     # via nbconvert
-nbclient==0.6.6
+nbclient==0.6.7
     # via nbconvert
-nbconvert==6.5.3
+nbconvert==7.0.0
     # via jupyter-server
 nbformat==5.4.0
     # via
@@ -154,7 +153,7 @@ traitlets==5.3.0
     #   nbclient
     #   nbconvert
     #   nbformat
-urllib3==1.26.11
+urllib3==1.26.12
     # via requests
 webencodings==0.5.1
     # via

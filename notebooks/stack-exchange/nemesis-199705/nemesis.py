@@ -2,6 +2,7 @@ import sys
 from enum import IntEnum
 
 from dyce import H
+from dyce.evaluation import HResult, foreach
 
 if sys.version_info >= (3, 9):
     from functools import cache
@@ -68,11 +69,11 @@ def nemesis(
                 else H({Result.LOSS: 1})
             )
 
-        def _next(our_chi_loss, their_chi_loss) -> H:
-            if our_chi_loss or their_chi_loss:
+        def _next(our_chi_loss: HResult, their_chi_loss: HResult) -> H:
+            if our_chi_loss.outcome or their_chi_loss.outcome:
                 return _resolve_combat(
-                    our_chi_this_round - our_chi_loss,
-                    their_chi_this_round - their_chi_loss,
+                    our_chi_this_round - our_chi_loss.outcome,
+                    their_chi_this_round - their_chi_loss.outcome,
                     this_round + 1,
                 )
             else:
@@ -80,10 +81,13 @@ def nemesis(
                 # infinite recursion
                 return H({})
 
-        return H.foreach(
+        return foreach(
             _next,
             our_chi_loss=our_anticipated_chi_losses,
             their_chi_loss=their_anticipated_chi_losses,
+            # We set limit to -1 to explicitly remove any externally imposed recursion
+            # cutoff, since the default is effectively 1
+            limit=-1,
         )
 
     return _resolve_combat(our_initial_chi, their_initial_chi)
