@@ -1,9 +1,7 @@
+--requirement build-requirements.txt
 debugpy
 ipython
-jupyterlab-server
-jupyterlite
 pip-tools
-pkginfo
 pyls-flake8
 pyls-isort
 pylsp-mypy

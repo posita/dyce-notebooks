@@ -5,66 +5,100 @@
 #    pip-compile dev-requirements.in
 #
 anyio==3.6.1
-    # via jupyter-server
+    # via
+    #   -r build-requirements.txt
+    #   jupyter-server
 appnope==0.1.3
     # via ipython
 argon2-cffi==21.3.0
-    # via jupyter-server
+    # via
+    #   -r build-requirements.txt
+    #   jupyter-server
 argon2-cffi-bindings==21.2.0
-    # via argon2-cffi
+    # via
+    #   -r build-requirements.txt
+    #   argon2-cffi
 asttokens==2.0.5
     # via stack-data
 attrs==21.4.0
-    # via jsonschema
-babel==2.10.1
-    # via jupyterlab-server
+    # via
+    #   -r build-requirements.txt
+    #   jsonschema
+babel==2.10.3
+    # via
+    #   -r build-requirements.txt
+    #   jupyterlab-server
 backcall==0.2.0
     # via ipython
 beautifulsoup4==4.11.1
-    # via nbconvert
-black==22.3.0
+    # via
+    #   -r build-requirements.txt
+    #   nbconvert
+black==22.6.0
     # via python-lsp-black
-bleach==5.0.0
-    # via nbconvert
-certifi==2022.5.18.1
-    # via requests
-cffi==1.15.0
-    # via argon2-cffi-bindings
-charset-normalizer==2.0.12
-    # via requests
+bleach==5.0.1
+    # via
+    #   -r build-requirements.txt
+    #   nbconvert
+build==0.8.0
+    # via pip-tools
+certifi==2022.6.15
+    # via
+    #   -r build-requirements.txt
+    #   requests
+cffi==1.15.1
+    # via
+    #   -r build-requirements.txt
+    #   argon2-cffi-bindings
+charset-normalizer==2.1.0
+    # via
+    #   -r build-requirements.txt
+    #   requests
 click==8.1.3
     # via
     #   black
     #   pip-tools
 cloudpickle==2.1.0
-    # via doit
+    # via
+    #   -r build-requirements.txt
+    #   doit
 debugpy==1.6.0
     # via -r dev-requirements.in
 decorator==5.1.1
     # via ipython
 defusedxml==0.7.1
-    # via nbconvert
+    # via
+    #   -r build-requirements.txt
+    #   nbconvert
 doit==0.36.0
-    # via jupyterlite
+    # via
+    #   -r build-requirements.txt
+    #   jupyterlite
 entrypoints==0.4
     # via
+    #   -r build-requirements.txt
     #   jupyter-client
     #   jupyterlite
     #   nbconvert
 executing==0.8.3
     # via stack-data
 fastjsonschema==2.15.3
-    # via nbformat
+    # via
+    #   -r build-requirements.txt
+    #   nbformat
 flake8==4.0.1
     # via
     #   pyls-flake8
     #   python-lsp-server
 idna==3.3
     # via
+    #   -r build-requirements.txt
     #   anyio
     #   requests
-importlib-metadata==4.11.4
-    # via doit
+importlib-metadata==4.12.0
+    # via
+    #   -r build-requirements.txt
+    #   doit
 ipython==8.4.0
     # via -r dev-requirements.in
 isort==5.10.1
@@ -75,36 +109,47 @@ jedi==0.18.1
     #   python-lsp-server
 jinja2==3.1.2
     # via
+    #   -r build-requirements.txt
     #   jupyter-server
     #   jupyterlab-server
     #   nbconvert
 json5==0.9.8
-    # via jupyterlab-server
-jsonschema==4.5.1
     # via
+    #   -r build-requirements.txt
+    #   jupyterlab-server
+jsonschema==4.6.1
+    # via
+    #   -r build-requirements.txt
     #   jupyterlab-server
     #   nbformat
-jupyter-client==7.3.1
+jupyter-client==7.3.4
     # via
+    #   -r build-requirements.txt
     #   jupyter-server
     #   nbclient
 jupyter-core==4.10.0
     # via
+    #   -r build-requirements.txt
     #   jupyter-client
     #   jupyter-server
     #   jupyterlite
     #   nbconvert
     #   nbformat
-jupyter-server==1.17.0
-    # via jupyterlab-server
+jupyter-server==1.18.1
+    # via
+    #   -r build-requirements.txt
+    #   jupyterlab-server
 jupyterlab-pygments==0.2.2
-    # via nbconvert
-jupyterlab-server==2.14.0
-    # via -r dev-requirements.in
-jupyterlite==0.1.0b7
-    # via -r dev-requirements.in
+    # via
+    #   -r build-requirements.txt
+    #   nbconvert
+jupyterlab-server==2.15.0
+    # via -r build-requirements.txt
+jupyterlite==0.1.0b10
+    # via -r build-requirements.txt
 markupsafe==2.1.1
     # via
+    #   -r build-requirements.txt
     #   jinja2
     #   nbconvert
 matplotlib-inline==0.1.3
@@ -112,57 +157,73 @@ matplotlib-inline==0.1.3
 mccabe==0.6.1
     # via flake8
 mistune==0.8.4
-    # via nbconvert
-mypy==0.960
+    # via
+    #   -r build-requirements.txt
+    #   nbconvert
+mypy==0.961
     # via pylsp-mypy
 mypy-extensions==0.4.3
     # via
     #   black
     #   mypy
-nbclient==0.6.3
-    # via nbconvert
+nbclient==0.6.6
+    # via
+    #   -r build-requirements.txt
+    #   nbconvert
 nbconvert==6.5.0
-    # via jupyter-server
+    # via
+    #   -r build-requirements.txt
+    #   jupyter-server
 nbformat==5.4.0
     # via
+    #   -r build-requirements.txt
     #   jupyter-server
     #   nbclient
     #   nbconvert
 nest-asyncio==1.5.5
     # via
+    #   -r build-requirements.txt
     #   jupyter-client
     #   nbclient
 packaging==21.3
     # via
+    #   -r build-requirements.txt
+    #   build
     #   jupyter-server
     #   jupyterlab-server
     #   nbconvert
+    #   pytoolconfig
 pandocfilters==1.5.0
-    # via nbconvert
+    # via
+    #   -r build-requirements.txt
+    #   nbconvert
 parso==0.8.3
     # via jedi
 pathspec==0.9.0
     # via black
 pep517==0.12.0
-    # via pip-tools
+    # via build
 pexpect==4.8.0
     # via ipython
 pickleshare==0.7.5
     # via ipython
-pip-tools==6.6.2
+pip-tools==6.8.0
     # via -r dev-requirements.in
-pkginfo==1.8.2
-    # via -r dev-requirements.in
+pkginfo==1.8.3
+    # via -r build-requirements.txt
 platformdirs==2.5.2
     # via black
 pluggy==1.0.0
     # via python-lsp-server
 prometheus-client==0.14.1
-    # via jupyter-server
-prompt-toolkit==3.0.29
+    # via
+    #   -r build-requirements.txt
+    #   jupyter-server
+prompt-toolkit==3.0.30
     # via ipython
 ptyprocess==0.7.0
     # via
+    #   -r build-requirements.txt
     #   pexpect
     #   terminado
 pure-eval==0.2.2
@@ -170,27 +231,36 @@ pure-eval==0.2.2
 pycodestyle==2.8.0
     # via flake8
 pycparser==2.21
-    # via cffi
+    # via
+    #   -r build-requirements.txt
+    #   cffi
 pyflakes==2.4.0
     # via flake8
 pygments==2.12.0
     # via
+    #   -r build-requirements.txt
     #   ipython
     #   nbconvert
 pyls-flake8==0.4.0
     # via -r dev-requirements.in
 pyls-isort==0.2.2
     # via -r dev-requirements.in
-pylsp-mypy==0.5.8
+pylsp-mypy==0.6.2
     # via -r dev-requirements.in
 pylsp-rope==0.1.9
     # via -r dev-requirements.in
 pyparsing==3.0.9
-    # via packaging
+    # via
+    #   -r build-requirements.txt
+    #   packaging
 pyrsistent==0.18.1
-    # via jsonschema
+    # via
+    #   -r build-requirements.txt
+    #   jsonschema
 python-dateutil==2.8.2
-    # via jupyter-client
+    # via
+    #   -r build-requirements.txt
+    #   jupyter-client
 python-lsp-black==1.2.1
     # via -r dev-requirements.in
 python-lsp-jsonrpc==1.0.0
@@ -203,35 +273,53 @@ python-lsp-server[flake8,rope]==1.4.1
     #   pylsp-mypy
     #   pylsp-rope
     #   python-lsp-black
+pytoolconfig==1.2.1
+    # via rope
 pytz==2022.1
-    # via babel
-pyzmq==23.0.0
     # via
+    #   -r build-requirements.txt
+    #   babel
+pyzmq==23.2.0
+    # via
+    #   -r build-requirements.txt
     #   jupyter-client
     #   jupyter-server
-requests==2.27.1
-    # via jupyterlab-server
-rope==1.1.1
+requests==2.28.1
+    # via
+    #   -r build-requirements.txt
+    #   jupyterlab-server
+rope==1.2.0
     # via
     #   pylsp-rope
     #   python-lsp-server
 send2trash==1.8.0
-    # via jupyter-server
+    # via
+    #   -r build-requirements.txt
+    #   jupyter-server
 six==1.16.0
     # via
+    #   -r build-requirements.txt
     #   asttokens
     #   bleach
     #   python-dateutil
 sniffio==1.2.0
-    # via anyio
+    # via
+    #   -r build-requirements.txt
+    #   anyio
 soupsieve==2.3.2.post1
-    # via beautifulsoup4
-stack-data==0.2.0
+    # via
+    #   -r build-requirements.txt
+    #   beautifulsoup4
+stack-data==0.3.0
     # via ipython
 terminado==0.15.0
-    # via jupyter-server
+    # via
+    #   -r build-requirements.txt
+    #   jupyter-server
 tinycss2==1.1.1
-    # via nbconvert
+    # via
+    #   -r build-requirements.txt
+    #   nbconvert
 toml==0.10.2
     # via
     #   pylsp-mypy
@@ -239,15 +327,19 @@ toml==0.10.2
 tomli==2.0.1
     # via
     #   black
+    #   build
     #   mypy
     #   pep517
-tornado==6.1
+    #   pytoolconfig
+tornado==6.2
     # via
+    #   -r build-requirements.txt
     #   jupyter-client
     #   jupyter-server
     #   terminado
-traitlets==5.2.1.post0
+traitlets==5.3.0
     # via
+    #   -r build-requirements.txt
     #   ipython
     #   jupyter-client
     #   jupyter-core
@@ -256,26 +348,33 @@ traitlets==5.2.1.post0
     #   nbclient
     #   nbconvert
     #   nbformat
-typing-extensions==4.2.0
+typing-extensions==4.3.0
     # via mypy
-ujson==5.3.0
+ujson==5.4.0
     # via
     #   python-lsp-jsonrpc
     #   python-lsp-server
 urllib3==1.26.9
-    # via requests
+    # via
+    #   -r build-requirements.txt
+    #   requests
 wcwidth==0.2.5
     # via prompt-toolkit
 webencodings==0.5.1
     # via
+    #   -r build-requirements.txt
     #   bleach
     #   tinycss2
-websocket-client==1.3.2
-    # via jupyter-server
+websocket-client==1.3.3
+    # via
+    #   -r build-requirements.txt
+    #   jupyter-server
 wheel==0.37.1
     # via pip-tools
 zipp==3.8.0
-    # via importlib-metadata
+    # via
+    #   -r build-requirements.txt
+    #   importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip

@@ -1,0 +1,3 @@
+jupyterlab-server
+jupyterlite>=0.1.0b9
+pkginfo
