@@ -1,6 +1,9 @@
 --requirement build-requirements.txt
+andyce~=0.1.4
 debugpy
 ipython
+ipywidgets
+matplotlib
 pip-tools
 pyls-flake8
 pyls-isort
