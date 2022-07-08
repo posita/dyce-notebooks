@@ -54,7 +54,7 @@ def showit():
     our_trait_widget = widgets.IntSlider(
         value=2,
         min=0,
-        max=10,
+        max=5,
         step=1,
         continuous_update=False,
         description="Trait",
@@ -90,7 +90,7 @@ def showit():
     their_trait_widget = widgets.IntSlider(
         value=2,
         min=0,
-        max=10,
+        max=5,
         step=1,
         continuous_update=False,
         description="Trait",
