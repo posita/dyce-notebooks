@@ -1,6 +1,9 @@
 --requirement build-requirements.txt
+anydyce~=0.1.4
 debugpy
-ipython
+line_profiler[ipython]
+ipywidgets
+matplotlib
 pip-tools
 pyls-flake8
 pyls-isort
