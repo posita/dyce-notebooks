@@ -61,16 +61,18 @@ def to_hit_result(
 def expected_damage(
     target: int,
     to_hit: H,  # e.g., normal, adv, disadv
-    to_hit_func: Callable[[int, H], H],
-    normal_dmg: H,
-    extra_crit_dmg: H,
+    to_hit_func: Callable[[int, H], H],  # e.g., crit_normal, crit_improved, etc.
+    normal_dmg: H,  # e.g., H(6) + 3 for 1d6+3
+    extra_crit_dmg: H,  # e.g., H(6) for 1d6
 ) -> H:
     expected_to_hit = to_hit_func(target, to_hit)
 
     def _eval(expected_to_hit_outcome: int) -> Union[H, int]:
         if expected_to_hit_outcome == HitResult.CRIT:
+            # Minimum damage is 1
             return bounds(normal_dmg + extra_crit_dmg, min_outcome=1)
         elif expected_to_hit_outcome == HitResult.HIT:
+            # Minimum damage is 1
             return bounds(normal_dmg, min_outcome=1)
         else:
             return 0

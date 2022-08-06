@@ -2,9 +2,9 @@
   "content": [
     {
       "content": null,
-      "created": "2022-08-06T15:22:31.330498Z",
+      "created": "2022-08-06T15:23:53.575530Z",
       "format": null,
-      "last_modified": "2022-08-06T15:22:12.655231Z",
+      "last_modified": "2022-08-06T15:23:37.391248Z",
       "mimetype": null,
       "name": "expected_damage.ipynb",
       "path": "stack-exchange/expected-dmg-200447/expected_damage.ipynb",
@@ -14,21 +14,21 @@
     },
     {
       "content": null,
-      "created": "2022-08-06T15:22:31.330498Z",
+      "created": "2022-08-06T15:23:53.575530Z",
       "format": null,
-      "last_modified": "2022-08-06T15:22:12.655231Z",
+      "last_modified": "2022-08-06T15:23:37.391248Z",
       "mimetype": "text/x-python",
       "name": "expected_damage.py",
       "path": "stack-exchange/expected-dmg-200447/expected_damage.py",
-      "size": 2125,
+      "size": 2285,
       "type": "file",
       "writable": true
     },
     {
       "content": null,
-      "created": "2022-08-06T15:22:31.330498Z",
+      "created": "2022-08-06T15:23:53.575530Z",
       "format": null,
-      "last_modified": "2022-08-06T15:22:12.655231Z",
+      "last_modified": "2022-08-06T15:23:37.391248Z",
       "mimetype": "text/x-python",
       "name": "showit.py",
       "path": "stack-exchange/expected-dmg-200447/showit.py",
@@ -37,9 +37,9 @@
       "writable": true
     }
   ],
-  "created": "2022-08-06T15:22:31.330498Z",
+  "created": "2022-08-06T15:23:53.575530Z",
   "format": "json",
-  "last_modified": "2022-08-06T15:22:31.330498Z",
+  "last_modified": "2022-08-06T15:23:53.575530Z",
   "mimetype": null,
   "name": "expected-dmg-200447",
   "path": "stack-exchange/expected-dmg-200447",
