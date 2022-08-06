@@ -3,21 +3,21 @@ from typing import Callable
 from anydyce import BreakoutType, jupyter_visualize
 from dyce import H
 from expected_damage import (
+    TO_HIT_ADV,
+    TO_HIT_DISADV,
+    TO_HIT_NORMAL,
     crit_improved,
     crit_normal,
     crit_superior,
     expected_damage,
-    to_hit_adv,
-    to_hit_disadv,
-    to_hit_normal,
 )
 from IPython.display import display
 from ipywidgets import widgets
 
 TO_HIT_METHODS = {
-    "Disadvantage": to_hit_disadv,
-    "Normal": to_hit_normal,
-    "Advantage": to_hit_adv,
+    "Disadvantage": TO_HIT_DISADV,
+    "Normal": TO_HIT_NORMAL,
+    "Advantage": TO_HIT_ADV,
 }
 
 
@@ -48,15 +48,14 @@ def showit(damage_dice: dict[str, H]):
 
         norm_h = norm_dmg_dice + norm_dmg_mod
         crit_h = crit_dmg_dice + crit_dmg_mod
+
         expected_dmg_by_to_hit_method = {
             to_hit_name: expected_damage(
-                target=target,
-                to_hit=to_hit_h,
-                to_hit_func=crit_method,
+                expected_to_hit=crit_method(target, to_hit_method),
                 normal_dmg=norm_h,
                 extra_crit_dmg=crit_h,
             )
-            for to_hit_name, to_hit_h in TO_HIT_METHODS.items()
+            for to_hit_name, to_hit_method in TO_HIT_METHODS.items()
         }
 
         jupyter_visualize(
