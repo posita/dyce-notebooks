@@ -52,7 +52,7 @@ def showit(damage_dice: dict[str, H]):
             to_hit_name: expected_damage(
                 target=target,
                 to_hit=to_hit_h,
-                attack_func=crit_method,
+                to_hit_func=crit_method,
                 normal_dmg=norm_h,
                 extra_crit_dmg=crit_h,
             )
