@@ -1,0 +1,75 @@
+from enum import IntEnum, auto
+from functools import partial
+from typing import Callable, Optional, Union
+
+from dyce import H, P
+
+
+class HitResult(IntEnum):
+    MISS = 0
+    HIT = auto()
+    CRIT = auto()
+
+
+to_hit_normal = H(20)
+to_hit_disadv = P(to_hit_normal, to_hit_normal).h(0)
+to_hit_adv = P(to_hit_normal, to_hit_normal).h(-1)
+
+
+def attack_result(
+    attack_outcome: int, *, target: int, crits: tuple[int, ...] = (20,)
+) -> Union[H, int]:
+    if attack_outcome in crits:
+        return HitResult.CRIT
+    elif attack_outcome == 1 or attack_outcome < target:
+        return HitResult.MISS
+    else:
+        return HitResult.HIT
+
+
+def bounds(
+    h: H, min_outcome: Optional[int] = None, max_outcome: Optional[int] = None
+) -> H:
+    def _eval(h_outcome: int) -> Union[H, int]:
+        this_min = h_outcome if min_outcome is None else min_outcome
+        this_max = h_outcome if max_outcome is None else max_outcome
+        return max(min(h_outcome, this_max), this_min)
+
+    return H.foreach(_eval, h_outcome=h)
+
+
+def crit_normal(target: int, to_hit: H) -> H:
+    return H.foreach(partial(attack_result, target=target), attack_outcome=to_hit)
+
+
+def crit_improved(target: int, to_hit: H) -> H:
+    return H.foreach(
+        partial(attack_result, target=target, crits=(19, 20)), attack_outcome=to_hit
+    )
+
+
+def crit_superior(target: int, to_hit: H) -> H:
+    return H.foreach(
+        partial(attack_result, target=target, crits=(18, 19, 20)),
+        attack_outcome=to_hit,
+    )
+
+
+def expected_damage(
+    target: int,
+    to_hit: H,
+    attack_func: Callable[[int, H], H],
+    normal_dmg: H,
+    extra_crit_dmg: H,
+) -> H:
+    expected_to_hit = attack_func(target, to_hit)
+
+    def _eval(expected_to_hit_outcome: int) -> Union[H, int]:
+        if expected_to_hit_outcome == HitResult.CRIT:
+            return normal_dmg + extra_crit_dmg
+        elif expected_to_hit_outcome == HitResult.HIT:
+            return normal_dmg
+        else:
+            return 0
+
+    return H.foreach(_eval, expected_to_hit_outcome=expected_to_hit)
