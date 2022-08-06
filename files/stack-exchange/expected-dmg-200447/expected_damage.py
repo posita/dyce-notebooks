@@ -16,17 +16,6 @@ to_hit_disadv = P(to_hit_normal, to_hit_normal).h(0)
 to_hit_adv = P(to_hit_normal, to_hit_normal).h(-1)
 
 
-def attack_result(
-    attack_outcome: int, *, target: int, crits: tuple[int, ...] = (20,)
-) -> Union[H, int]:
-    if attack_outcome in crits:
-        return HitResult.CRIT
-    elif attack_outcome == 1 or attack_outcome < target:
-        return HitResult.MISS
-    else:
-        return HitResult.HIT
-
-
 def bounds(
     h: H, min_outcome: Optional[int] = None, max_outcome: Optional[int] = None
 ) -> H:
@@ -39,25 +28,39 @@ def bounds(
 
 
 def crit_normal(target: int, to_hit: H) -> H:
-    return H.foreach(partial(attack_result, target=target), attack_outcome=to_hit)
+    return H.foreach(partial(to_hit_result, target=target), attack_outcome=to_hit)
 
 
 def crit_improved(target: int, to_hit: H) -> H:
     return H.foreach(
-        partial(attack_result, target=target, crits=(19, 20)), attack_outcome=to_hit
+        partial(to_hit_result, target=target, crits=(19, 20)), attack_outcome=to_hit
     )
 
 
 def crit_superior(target: int, to_hit: H) -> H:
     return H.foreach(
-        partial(attack_result, target=target, crits=(18, 19, 20)),
+        partial(to_hit_result, target=target, crits=(18, 19, 20)),
         attack_outcome=to_hit,
     )
 
 
+def to_hit_result(
+    attack_outcome: int,
+    *,
+    target: int,
+    crits: tuple[int, ...] = (20,),
+) -> Union[H, int]:
+    if attack_outcome in crits:
+        return HitResult.CRIT
+    elif attack_outcome == 1 or attack_outcome < target:
+        return HitResult.MISS
+    else:
+        return HitResult.HIT
+
+
 def expected_damage(
     target: int,
-    to_hit: H,
+    to_hit: H,  # e.g., normal, adv, disadv
     attack_func: Callable[[int, H], H],
     normal_dmg: H,
     extra_crit_dmg: H,
@@ -66,9 +69,9 @@ def expected_damage(
 
     def _eval(expected_to_hit_outcome: int) -> Union[H, int]:
         if expected_to_hit_outcome == HitResult.CRIT:
-            return normal_dmg + extra_crit_dmg
+            return bounds(normal_dmg + extra_crit_dmg, min_outcome=1)
         elif expected_to_hit_outcome == HitResult.HIT:
-            return normal_dmg
+            return bounds(normal_dmg, min_outcome=1)
         else:
             return 0
 

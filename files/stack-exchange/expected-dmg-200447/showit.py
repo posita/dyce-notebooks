@@ -3,7 +3,6 @@ from typing import Callable
 from anydyce import BreakoutType, jupyter_visualize
 from dyce import H
 from expected_damage import (
-    bounds,
     crit_improved,
     crit_normal,
     crit_superior,
@@ -47,8 +46,8 @@ def showit(damage_dice: dict[str, H]):
 
             return  # prevent double display
 
-        norm_h = bounds(norm_dmg_dice + norm_dmg_mod, min_outcome=1)
-        crit_h = bounds(crit_dmg_dice + crit_dmg_mod, min_outcome=1)
+        norm_h = norm_dmg_dice + norm_dmg_mod
+        crit_h = crit_dmg_dice + crit_dmg_mod
         expected_dmg_by_to_hit_method = {
             to_hit_name: expected_damage(
                 target=target,
