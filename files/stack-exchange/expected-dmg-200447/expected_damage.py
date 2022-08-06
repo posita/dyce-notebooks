@@ -61,11 +61,11 @@ def to_hit_result(
 def expected_damage(
     target: int,
     to_hit: H,  # e.g., normal, adv, disadv
-    attack_func: Callable[[int, H], H],
+    to_hit_func: Callable[[int, H], H],
     normal_dmg: H,
     extra_crit_dmg: H,
 ) -> H:
-    expected_to_hit = attack_func(target, to_hit)
+    expected_to_hit = to_hit_func(target, to_hit)
 
     def _eval(expected_to_hit_outcome: int) -> Union[H, int]:
         if expected_to_hit_outcome == HitResult.CRIT:
