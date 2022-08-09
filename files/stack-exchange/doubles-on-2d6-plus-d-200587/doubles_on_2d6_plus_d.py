@@ -11,30 +11,30 @@ def mechanic(
     count_ones: bool,
 ) -> H:
     def _eval(roll: RollT) -> H:
-        our_victories = 0
-        their_victories = 0
+        our_net_wins = 0
+        their_net_wins = 0
 
         # Achieving our target goes to us; failing goes to them
         roll_total = sum(roll)
 
         if roll_total >= base_target:
-            our_victories += 1
+            our_net_wins += 1
 
             if extra_target is not None and roll_total >= extra_target:
-                our_victories += 1
+                our_net_wins += 1
         else:
-            their_victories += 1
+            their_net_wins += 1
 
         # Doubles and triples go to us
         distinct_outcomes = set(roll)
-        our_victories += 3 - len(distinct_outcomes)
+        our_net_wins += 3 - len(distinct_outcomes)
 
         # Ones go to them
         if count_ones:
-            their_victories += sum(outcome == 1 for outcome in roll)
+            their_net_wins += sum(outcome == 1 for outcome in roll)
         else:
-            their_victories += any(outcome == 1 for outcome in roll)
+            their_net_wins += any(outcome == 1 for outcome in roll)
 
-        return our_victories, their_victories  # type: ignore
+        return our_net_wins, their_net_wins  # type: ignore
 
     return P.foreach(_eval, roll=P(6, 6, die))
