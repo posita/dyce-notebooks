@@ -57,11 +57,11 @@ def showit():
         target_str = (
             f"{base_target}"
             if extra_target is None
-            else f"{base_target} (with extra on {extra_target})"
+            else f"{base_target}\nwith an extra win on {extra_target}"
         )
 
         if count_ones:
-            target_str += " and counting each one against us"
+            target_str += "\nand counting each one against us"
 
         plot_burst_subplot(
             net_result,
