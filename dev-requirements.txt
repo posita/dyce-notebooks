@@ -10,10 +10,6 @@ anyio==3.6.1
     # via
     #   -r build-requirements.txt
     #   jupyter-server
-appnope==0.1.3
-    # via
-    #   ipykernel
-    #   ipython
 argon2-cffi==21.3.0
     # via
     #   -r build-requirements.txt
@@ -23,7 +19,7 @@ argon2-cffi-bindings==21.2.0
     # via
     #   -r build-requirements.txt
     #   argon2-cffi
-asttokens==2.0.5
+asttokens==2.0.7
     # via stack-data
 attrs==21.4.0
     # via
@@ -93,7 +89,7 @@ entrypoints==0.4
     #   jupyter-client
     #   jupyterlite
     #   nbconvert
-executing==0.9.1
+executing==0.10.0
     # via stack-data
 fastjsonschema==2.15.3
     # via
@@ -192,7 +188,7 @@ markupsafe==2.1.1
     #   -r build-requirements.txt
     #   jinja2
     #   nbconvert
-matplotlib==3.5.2
+matplotlib==3.5.3
     # via
     #   -r dev-requirements.in
     #   anydyce
@@ -239,7 +235,7 @@ notebook==6.4.12
     # via widgetsnbextension
 numerary==0.4.2
     # via dyce
-numpy==1.23.1
+numpy==1.23.2
     # via matplotlib
 packaging==21.3
     # via
@@ -377,7 +373,7 @@ soupsieve==2.3.2.post1
     # via
     #   -r build-requirements.txt
     #   beautifulsoup4
-stack-data==0.3.0
+stack-data==0.4.0
     # via ipython
 terminado==0.15.0
     # via
