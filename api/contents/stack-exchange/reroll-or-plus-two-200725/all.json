@@ -2,20 +2,20 @@
   "content": [
     {
       "content": null,
-      "created": "2022-08-15T15:30:33.689288Z",
+      "created": "2022-08-15T15:39:33.212183Z",
       "format": null,
-      "last_modified": "2022-08-15T15:30:18.765024Z",
+      "last_modified": "2022-08-15T15:39:14.836133Z",
       "mimetype": null,
       "name": "reroll_or_plus_two.ipynb",
       "path": "stack-exchange/reroll-or-plus-two-200725/reroll_or_plus_two.ipynb",
-      "size": 11278,
+      "size": 11292,
       "type": "notebook",
       "writable": true
     }
   ],
-  "created": "2022-08-15T15:30:33.689288Z",
+  "created": "2022-08-15T15:39:33.212183Z",
   "format": "json",
-  "last_modified": "2022-08-15T15:30:33.689288Z",
+  "last_modified": "2022-08-15T15:39:33.212183Z",
   "mimetype": null,
   "name": "reroll-or-plus-two-200725",
   "path": "stack-exchange/reroll-or-plus-two-200725",
