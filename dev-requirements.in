@@ -2,9 +2,8 @@
 anydyce~=0.1.4
 debugpy
 line_profiler[ipython]
-ipywidgets
-matplotlib
 pip-tools
+pre-commit
 pyls-flake8
 pyls-isort
 pylsp-mypy
