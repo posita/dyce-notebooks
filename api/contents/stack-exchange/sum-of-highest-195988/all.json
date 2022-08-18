@@ -2,20 +2,20 @@
   "content": [
     {
       "content": null,
-      "created": "2022-08-15T15:39:33.212183Z",
+      "created": "2022-08-18T17:15:24.550295Z",
       "format": null,
-      "last_modified": "2022-08-15T15:39:14.836133Z",
+      "last_modified": "2022-08-18T17:15:09.966144Z",
       "mimetype": null,
       "name": "sum_of_highest.ipynb",
       "path": "stack-exchange/sum-of-highest-195988/sum_of_highest.ipynb",
-      "size": 43806,
+      "size": 43944,
       "type": "notebook",
       "writable": true
     }
   ],
-  "created": "2022-08-15T15:39:33.212183Z",
+  "created": "2022-08-18T17:15:24.546295Z",
   "format": "json",
-  "last_modified": "2022-08-15T15:39:33.212183Z",
+  "last_modified": "2022-08-18T17:15:24.546295Z",
   "mimetype": null,
   "name": "sum-of-highest-195988",
   "path": "stack-exchange/sum-of-highest-195988",
