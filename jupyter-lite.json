@@ -1,6 +1,6 @@
 {
   "jupyter-config-data": {
-    "appName": "dyce",
+    "appName": "dyce-notebooks",
     "appUrl": "./lab",
     "appVersion": "0.1.0-beta.9",
     "baseUrl": "./",
