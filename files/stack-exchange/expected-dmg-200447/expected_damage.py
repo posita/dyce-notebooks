@@ -3,6 +3,7 @@ from functools import partial
 from typing import Optional, Union
 
 from dyce import H, P
+from dyce.evaluation import HResult, foreach
 
 
 class HitResult(IntEnum):
@@ -17,14 +18,14 @@ TO_HIT_ADV = P(TO_HIT_NORMAL, TO_HIT_NORMAL).h(-1)
 
 
 def _limit(h: H, lo: Optional[int] = None, hi: Optional[int] = None) -> H:
-    def _eval(h_outcome: int) -> Union[H, int]:
-        res = h_outcome
+    def _eval(h_result: HResult) -> Union[H, int]:
+        res = h_result.outcome
         res = res if lo is None else max(res, lo)
         res = res if hi is None else min(res, hi)
 
         return res
 
-    return H.foreach(_eval, h_outcome=h)
+    return foreach(_eval, h_result=h)
 
 
 assert _limit(H(6), lo=2) == H({2: 2, 3: 1, 4: 1, 5: 1, 6: 1})
@@ -33,23 +34,23 @@ assert _limit(H(6), lo=2, hi=5) == H({2: 2, 3: 1, 4: 1, 5: 2})
 
 
 def _to_hit_result(
-    to_hit_outcome: int,
+    to_hit: HResult,
     *,
     target: int,
     crits: tuple[int, ...],
 ) -> Union[H, int]:
-    if to_hit_outcome in crits:
+    if to_hit.outcome in crits:
         return HitResult.CRIT
-    elif to_hit_outcome == 1 or to_hit_outcome < target:
+    elif to_hit.outcome == 1 or to_hit.outcome < target:
         return HitResult.MISS
     else:
         return HitResult.HIT
 
 
 def crit_normal(target: int, to_hit: H) -> H:
-    return H.foreach(
+    return foreach(
         partial(_to_hit_result, target=target, crits=(20,)),
-        to_hit_outcome=to_hit,
+        to_hit=to_hit,
     )
 
 
@@ -59,9 +60,9 @@ assert crit_normal(10, TO_HIT_NORMAL) == H(
 
 
 def crit_improved(target: int, to_hit: H) -> H:
-    return H.foreach(
+    return foreach(
         partial(_to_hit_result, target=target, crits=(19, 20)),
-        to_hit_outcome=to_hit,
+        to_hit=to_hit,
     )
 
 
@@ -71,9 +72,9 @@ assert crit_improved(10, TO_HIT_NORMAL) == H(
 
 
 def crit_superior(target: int, to_hit: H) -> H:
-    return H.foreach(
+    return foreach(
         partial(_to_hit_result, target=target, crits=(18, 19, 20)),
-        to_hit_outcome=to_hit,
+        to_hit=to_hit,
     )
 
 
@@ -92,15 +93,15 @@ def expected_damage(
     # Minimum additional crit damage is 0
     crit_dmg_ltd = normal_dmg_ltd + _limit(extra_crit_dmg, lo=0)
 
-    def _eval(expected_to_hit_outcome: int) -> Union[H, int]:
-        if expected_to_hit_outcome == HitResult.CRIT:
+    def _eval(expected_to_hit: HResult) -> Union[H, int]:
+        if expected_to_hit.outcome == HitResult.CRIT:
             return crit_dmg_ltd
-        elif expected_to_hit_outcome == HitResult.HIT:
+        elif expected_to_hit.outcome == HitResult.HIT:
             return normal_dmg_ltd
         else:
             return 0
 
-    return H.foreach(_eval, expected_to_hit_outcome=expected_to_hit)
+    return foreach(_eval, expected_to_hit=expected_to_hit)
 
 
 assert expected_damage(crit_improved(13, TO_HIT_DISADV), H(6) + 3, H(6)) == H(

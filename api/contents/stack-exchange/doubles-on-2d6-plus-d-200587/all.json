@@ -2,21 +2,21 @@
   "content": [
     {
       "content": null,
-      "created": "2022-08-18T19:19:33.219238Z",
+      "created": "2022-08-19T11:31:14.628906Z",
       "format": null,
-      "last_modified": "2022-08-18T19:19:18.935038Z",
+      "last_modified": "2022-08-19T11:30:58.492892Z",
       "mimetype": null,
       "name": "doubles_on_2d6_plus_d.ipynb",
       "path": "stack-exchange/doubles-on-2d6-plus-d-200587/doubles_on_2d6_plus_d.ipynb",
-      "size": 3978,
+      "size": 3994,
       "type": "notebook",
       "writable": true
     },
     {
       "content": null,
-      "created": "2022-08-18T19:19:33.219238Z",
+      "created": "2022-08-19T11:31:14.628906Z",
       "format": null,
-      "last_modified": "2022-08-18T19:19:18.935038Z",
+      "last_modified": "2022-08-19T11:30:58.492892Z",
       "mimetype": "text/x-python",
       "name": "showit.py",
       "path": "stack-exchange/doubles-on-2d6-plus-d-200587/showit.py",
@@ -26,9 +26,9 @@
     },
     {
       "content": null,
-      "created": "2022-08-18T19:19:33.219238Z",
+      "created": "2022-08-19T11:31:14.628906Z",
       "format": null,
-      "last_modified": "2022-08-18T19:19:18.935038Z",
+      "last_modified": "2022-08-19T11:30:58.492892Z",
       "mimetype": "text/x-python",
       "name": "doubles_on_2d6_plus_d.py",
       "path": "stack-exchange/doubles-on-2d6-plus-d-200587/doubles_on_2d6_plus_d.py",
@@ -37,9 +37,9 @@
       "writable": true
     }
   ],
-  "created": "2022-08-18T19:19:33.219238Z",
+  "created": "2022-08-19T11:31:14.628906Z",
   "format": "json",
-  "last_modified": "2022-08-18T19:19:33.219238Z",
+  "last_modified": "2022-08-19T11:31:14.628906Z",
   "mimetype": null,
   "name": "doubles-on-2d6-plus-d-200587",
   "path": "stack-exchange/doubles-on-2d6-plus-d-200587",

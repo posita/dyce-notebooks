@@ -2,9 +2,9 @@
   "content": [
     {
       "content": null,
-      "created": "2022-08-18T19:19:33.227238Z",
+      "created": "2022-08-19T11:31:14.636906Z",
       "format": null,
-      "last_modified": "2022-08-18T19:19:18.947038Z",
+      "last_modified": "2022-08-19T11:30:58.504892Z",
       "mimetype": null,
       "name": "reroll_or_plus_two.ipynb",
       "path": "stack-exchange/reroll-or-plus-two-200725/reroll_or_plus_two.ipynb",
@@ -13,9 +13,9 @@
       "writable": true
     }
   ],
-  "created": "2022-08-18T19:19:33.227238Z",
+  "created": "2022-08-19T11:31:14.636906Z",
   "format": "json",
-  "last_modified": "2022-08-18T19:19:33.227238Z",
+  "last_modified": "2022-08-19T11:31:14.636906Z",
   "mimetype": null,
   "name": "reroll-or-plus-two-200725",
   "path": "stack-exchange/reroll-or-plus-two-200725",
