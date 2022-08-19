@@ -85,6 +85,9 @@ def nemesis(
             _next,
             our_chi_loss=our_anticipated_chi_losses,
             their_chi_loss=their_anticipated_chi_losses,
+            # We set limit to -1 to explicitly remove any externally imposed recursion
+            # cutoff, since the default is effectively 1
+            limit=-1,
         )
 
     return _resolve_combat(our_initial_chi, their_initial_chi)

@@ -2,21 +2,21 @@
   "content": [
     {
       "content": null,
-      "created": "2022-08-19T11:31:14.632906Z",
+      "created": "2022-08-19T12:37:58.612292Z",
       "format": null,
-      "last_modified": "2022-08-19T11:30:58.492892Z",
+      "last_modified": "2022-08-19T12:37:44.792245Z",
       "mimetype": "text/x-python",
       "name": "nemesis.py",
       "path": "stack-exchange/nemesis-199705/nemesis.py",
-      "size": 2687,
+      "size": 2853,
       "type": "file",
       "writable": true
     },
     {
       "content": null,
-      "created": "2022-08-19T11:31:14.632906Z",
+      "created": "2022-08-19T12:37:58.612292Z",
       "format": null,
-      "last_modified": "2022-08-19T11:30:58.492892Z",
+      "last_modified": "2022-08-19T12:37:44.792245Z",
       "mimetype": "text/x-python",
       "name": "showit.py",
       "path": "stack-exchange/nemesis-199705/showit.py",
@@ -26,9 +26,9 @@
     },
     {
       "content": null,
-      "created": "2022-08-19T11:31:14.632906Z",
+      "created": "2022-08-19T12:37:58.612292Z",
       "format": null,
-      "last_modified": "2022-08-19T11:30:58.492892Z",
+      "last_modified": "2022-08-19T12:37:44.792245Z",
       "mimetype": null,
       "name": "nemesis.ipynb",
       "path": "stack-exchange/nemesis-199705/nemesis.ipynb",
@@ -37,9 +37,9 @@
       "writable": true
     }
   ],
-  "created": "2022-08-19T11:31:14.632906Z",
+  "created": "2022-08-19T12:37:58.612292Z",
   "format": "json",
-  "last_modified": "2022-08-19T11:31:14.632906Z",
+  "last_modified": "2022-08-19T12:37:58.612292Z",
   "mimetype": null,
   "name": "nemesis-199705",
   "path": "stack-exchange/nemesis-199705",
