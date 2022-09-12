@@ -37,7 +37,7 @@ beautifulsoup4==4.11.1
     # via
     #   -r build-requirements.txt
     #   nbconvert
-black==22.6.0
+black==22.8.0
     # via python-lsp-black
 bleach==5.0.1
     # via
@@ -79,7 +79,7 @@ defusedxml==0.7.1
     # via
     #   -r build-requirements.txt
     #   nbconvert
-distlib==0.3.5
+distlib==0.3.6
     # via virtualenv
 doit==0.36.0
     # via
@@ -92,7 +92,7 @@ entrypoints==0.4
     #   -r build-requirements.txt
     #   jupyter-client
     #   jupyterlite
-executing==0.10.0
+executing==1.0.0
     # via stack-data
 fastjsonschema==2.16.1
     # via
@@ -104,9 +104,9 @@ flake8==4.0.1
     # via
     #   pyls-flake8
     #   python-lsp-server
-fonttools==4.37.0
+fonttools==4.37.1
     # via matplotlib
-identify==2.5.3
+identify==2.5.5
     # via pre-commit
 idna==3.3
     # via
@@ -117,11 +117,11 @@ importlib-metadata==4.12.0
     # via
     #   -r build-requirements.txt
     #   doit
-ipykernel==6.15.1
+ipykernel==6.15.2
     # via
     #   ipywidgets
     #   notebook
-ipython==8.4.0
+ipython==8.5.0
     # via
     #   ipykernel
     #   ipywidgets
@@ -149,12 +149,12 @@ json5==0.9.10
     # via
     #   -r build-requirements.txt
     #   jupyterlab-server
-jsonschema==4.14.0
+jsonschema==4.15.0
     # via
     #   -r build-requirements.txt
     #   jupyterlab-server
     #   nbformat
-jupyter-client==7.3.4
+jupyter-client==7.3.5
     # via
     #   -r build-requirements.txt
     #   ipykernel
@@ -264,7 +264,7 @@ pandocfilters==1.5.0
     #   nbconvert
 parso==0.8.3
     # via jedi
-pathspec==0.9.0
+pathspec==0.10.1
     # via black
 pep517==0.13.0
     # via build
@@ -291,9 +291,9 @@ prometheus-client==0.14.1
     #   -r build-requirements.txt
     #   jupyter-server
     #   notebook
-prompt-toolkit==3.0.30
+prompt-toolkit==3.0.31
     # via ipython
-psutil==5.9.1
+psutil==5.9.2
     # via ipykernel
 ptyprocess==0.7.0
     # via
@@ -321,7 +321,7 @@ pyls-isort==0.2.2
     # via -r dev-requirements.in
 pylsp-mypy==0.6.2
     # via -r dev-requirements.in
-pylsp-rope==0.1.9
+pylsp-rope==0.1.10
     # via -r dev-requirements.in
 pyparsing==3.0.9
     # via
@@ -383,7 +383,7 @@ six==1.16.0
     #   asttokens
     #   bleach
     #   python-dateutil
-sniffio==1.2.0
+sniffio==1.3.0
     # via
     #   -r build-requirements.txt
     #   anyio
@@ -391,7 +391,7 @@ soupsieve==2.3.2.post1
     # via
     #   -r build-requirements.txt
     #   beautifulsoup4
-stack-data==0.4.0
+stack-data==0.5.0
     # via ipython
 terminado==0.15.0
     # via
@@ -446,7 +446,7 @@ urllib3==1.26.12
     # via
     #   -r build-requirements.txt
     #   requests
-virtualenv==20.16.3
+virtualenv==20.16.4
     # via pre-commit
 wcwidth==0.2.5
     # via prompt-toolkit
@@ -455,7 +455,7 @@ webencodings==0.5.1
     #   -r build-requirements.txt
     #   bleach
     #   tinycss2
-websocket-client==1.3.3
+websocket-client==1.4.1
     # via
     #   -r build-requirements.txt
     #   jupyter-server
