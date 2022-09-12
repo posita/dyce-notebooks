@@ -6,9 +6,9 @@
       "format": null,
       "last_modified": "2022-09-12T12:42:49.608496Z",
       "mimetype": null,
-      "name": "charges.ipynb",
-      "path": "stack-exchange/charges-193353/charges.ipynb",
-      "size": 5237,
+      "name": "avg_bonus.ipynb",
+      "path": "stack-exchange/avg-bonus-201374/avg_bonus.ipynb",
+      "size": 88931,
       "type": "notebook",
       "writable": true
     }
@@ -17,8 +17,8 @@
   "format": "json",
   "last_modified": "2022-09-12T12:43:03.308708Z",
   "mimetype": null,
-  "name": "charges-193353",
-  "path": "stack-exchange/charges-193353",
+  "name": "avg-bonus-201374",
+  "path": "stack-exchange/avg-bonus-201374",
   "size": null,
   "type": "directory",
   "writable": true
