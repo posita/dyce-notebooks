@@ -2,7 +2,12 @@ from itertools import chain
 from math import trunc
 
 import matplotlib.pyplot
-from anydyce.viz import plot_burst
+from anydyce.viz import (
+    DEFAULT_BURST_ALPHA,
+    DEFAULT_GRAPH_COLOR,
+    DEFAULT_TEXT_COLOR,
+    plot_burst,
+)
 from dyce import H
 from IPython.display import display
 from ipywidgets import widgets
@@ -19,6 +24,9 @@ def showit():
     def _display(
         pool_size: int,
         round_halves: bool,
+        burst_graph_color: str,
+        burst_text_color: str,
+        alpha: float,
     ) -> None:
         successes = count_successes(pool=pool_size @ dyz)
 
@@ -88,6 +96,9 @@ def showit():
             h_inner=successes,
             h_outer=successes_legacy,
             title="Succ. After First Roll",
+            inner_color=burst_graph_color,
+            text_color=burst_text_color,
+            alpha=alpha,
         )
 
         row, col = (0, 1)
@@ -97,6 +108,9 @@ def showit():
             h_inner=successes_with_push,
             h_outer=successes_with_push_legacy,
             title="Succ. After Push",
+            inner_color=burst_graph_color,
+            text_color=burst_text_color,
+            alpha=alpha,
         )
 
         row, col = (0, 2)
@@ -106,6 +120,9 @@ def showit():
             h_inner=banes_with_push,
             h_outer=banes_with_push_legacy,
             title="Banes After Push",
+            inner_color=burst_graph_color,
+            text_color=burst_text_color,
+            alpha=alpha,
         )
 
         matplotlib.pyplot.tight_layout()
@@ -152,13 +169,44 @@ Raw data is below.
         description="Round Half Successes",
     )
 
+    burst_graph_color_widget = widgets.Dropdown(
+        value=DEFAULT_GRAPH_COLOR,
+        options=sorted(matplotlib.cm.cmap_d.keys()),
+        description="Graph Colors",
+    )
+
+    burst_text_color_widget = widgets.Dropdown(
+        value=DEFAULT_TEXT_COLOR,
+        options=sorted(sorted(matplotlib.colors.CSS4_COLORS.keys())),
+        description="Text Color",
+    )
+
+    alpha_widget = widgets.FloatSlider(
+        value=DEFAULT_BURST_ALPHA,
+        min=0.0,
+        max=1.0,
+        step=0.1,
+        continuous_update=False,
+        description="Opacity",
+    )
+
     display(
-        widgets.HBox([pool_size_widget, round_halves_widget]),
+        widgets.VBox(
+            [
+                widgets.HBox([pool_size_widget, round_halves_widget]),
+                widgets.HBox(
+                    [burst_graph_color_widget, burst_text_color_widget, alpha_widget]
+                ),
+            ]
+        ),
         widgets.interactive_output(
             _display,
             {
                 "pool_size": pool_size_widget,
                 "round_halves": round_halves_widget,
+                "burst_graph_color": burst_graph_color_widget,
+                "burst_text_color": burst_text_color_widget,
+                "alpha": alpha_widget,
             },
         ),
     )
