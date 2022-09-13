@@ -113,10 +113,12 @@ def showit():
 
         display(
             widgets.HTML(
-                "The burst graphs above depict comparisons between aspects of the legacy Year Zero Engine mechanic and the half-success modification."
-                "Outer graphs depict the legacy mechanic."
-                "Inner graphs depict the modification."
-                "Raw data is below."
+                """
+The burst graphs above depict comparisons between aspects of the legacy Year Zero Engine mechanic and the half-success modification.
+Outer graphs depict the legacy mechanic.
+Inner graphs depict the modification.
+Raw data is below.
+"""
             )
         )
 
