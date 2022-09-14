@@ -1,13 +1,9 @@
 from itertools import chain
 from math import trunc
+from typing import Iterator
 
 import matplotlib.pyplot
-from anydyce.viz import (
-    DEFAULT_BURST_ALPHA,
-    DEFAULT_GRAPH_COLOR,
-    DEFAULT_TEXT_COLOR,
-    plot_burst,
-)
+from anydyce.viz import DEFAULT_BURST_ALPHA, DEFAULT_GRAPH_COLOR, plot_burst
 from dyce import H
 from IPython.display import display
 from ipywidgets import widgets
@@ -25,7 +21,6 @@ def showit():
         pool_size: int,
         round_halves: bool,
         burst_graph_color: str,
-        burst_text_color: str,
         alpha: float,
     ) -> None:
         successes = count_successes(pool=pool_size @ dyz)
@@ -43,10 +38,7 @@ def showit():
         successes = successes.accumulate(successes_empty)
         successes_legacy = successes_legacy.accumulate(successes_empty)
 
-        successes_with_push = count_successes_with_push(
-            pool=pool_size @ dyz,
-            limit=2,  # to ensure count_successes is called in the interior
-        )
+        successes_with_push = count_successes_with_push(pool=pool_size @ dyz)
 
         if round_halves:
             successes_with_push = H(
@@ -55,8 +47,7 @@ def showit():
             )
 
         successes_with_push_legacy = count_successes_with_push(
-            pool=pool_size @ dyz_legacy,
-            limit=2,  # to ensure count_successes is called in the interior
+            pool=pool_size @ dyz_legacy
         )
         successes_with_push_empty = H(
             {
@@ -69,14 +60,8 @@ def showit():
             successes_with_push_empty
         )
 
-        banes_with_push = count_banes_with_push(
-            pool=pool_size @ dyz,
-            limit=2,  # to ensure count_banes is called in the interior
-        )
-        banes_with_push_legacy = count_banes_with_push(
-            pool=pool_size @ dyz_legacy,
-            limit=2,  # to ensure count_banes is called in the interior
-        )
+        banes_with_push = count_banes_with_push(pool=pool_size @ dyz)
+        banes_with_push_legacy = count_banes_with_push(pool=pool_size @ dyz_legacy)
         banes_with_push_empty = H(
             {outcome: 0 for outcome in chain(banes_with_push, banes_with_push_legacy)}
         )
@@ -97,7 +82,6 @@ def showit():
             h_outer=successes_legacy,
             title="Succ. After First Roll",
             inner_color=burst_graph_color,
-            text_color=burst_text_color,
             alpha=alpha,
         )
 
@@ -109,7 +93,6 @@ def showit():
             h_outer=successes_with_push_legacy,
             title="Succ. After Push",
             inner_color=burst_graph_color,
-            text_color=burst_text_color,
             alpha=alpha,
         )
 
@@ -120,8 +103,9 @@ def showit():
             h_inner=banes_with_push,
             h_outer=banes_with_push_legacy,
             title="Banes After Push",
-            inner_color=burst_graph_color,
-            text_color=burst_text_color,
+            inner_color=burst_graph_color[:-2]
+            if burst_graph_color.endswith("_r")
+            else burst_graph_color + "_r",  # use reverse color set for banes
             alpha=alpha,
         )
 
@@ -169,16 +153,18 @@ Raw data is below.
         description="Round Half Successes",
     )
 
+    def _color_names() -> Iterator[str]:
+        color_names = set(matplotlib.cm.cmap_d.keys())
+
+        for name in color_names:
+            if name + "_r" in color_names:
+                yield name
+                yield name + "_r"
+
     burst_graph_color_widget = widgets.Dropdown(
         value=DEFAULT_GRAPH_COLOR,
-        options=sorted(matplotlib.cm.cmap_d.keys()),
+        options=sorted(_color_names()),
         description="Graph Colors",
-    )
-
-    burst_text_color_widget = widgets.Dropdown(
-        value=DEFAULT_TEXT_COLOR,
-        options=sorted(sorted(matplotlib.colors.CSS4_COLORS.keys())),
-        description="Text Color",
     )
 
     alpha_widget = widgets.FloatSlider(
@@ -194,9 +180,7 @@ Raw data is below.
         widgets.VBox(
             [
                 widgets.HBox([pool_size_widget, round_halves_widget]),
-                widgets.HBox(
-                    [burst_graph_color_widget, burst_text_color_widget, alpha_widget]
-                ),
+                widgets.HBox([burst_graph_color_widget, alpha_widget]),
             ]
         ),
         widgets.interactive_output(
@@ -205,7 +189,6 @@ Raw data is below.
                 "pool_size": pool_size_widget,
                 "round_halves": round_halves_widget,
                 "burst_graph_color": burst_graph_color_widget,
-                "burst_text_color": burst_text_color_widget,
                 "alpha": alpha_widget,
             },
         ),

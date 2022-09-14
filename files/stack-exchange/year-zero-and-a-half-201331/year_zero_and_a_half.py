@@ -46,22 +46,28 @@ def count_successes(pool: PResult) -> Union[H, float]:
     return successes
 
 
-@expandable
-def count_successes_with_push(pool: PResult) -> Union[H, float]:
-    counter = Counter(pool.roll)
-    blanks = counter[YearZeroOutcomes.BLANK]
-    successes_so_far = (
-        counter[YearZeroOutcomes.HALF_SUCCESS]
-        + 2 * counter[YearZeroOutcomes.FULL_SUCCESS]
-    ) / 2
-    assert pool.p.is_homogeneous()
+def count_successes_with_push(pool: P) -> H:
+    @expandable
+    def _expand(p_result: PResult) -> Union[H, float]:
+        counter = Counter(p_result.roll)
+        blanks = counter[YearZeroOutcomes.BLANK]
+        successes_so_far = (
+            counter[YearZeroOutcomes.HALF_SUCCESS]
+            + 2 * counter[YearZeroOutcomes.FULL_SUCCESS]
+        ) / 2
+        assert p_result.p.is_homogeneous()
 
-    if blanks:
-        reroll = count_successes(pool=blanks @ pool.p[:1])
+        if blanks:
+            reroll = count_successes(blanks @ p_result.p[:1])
 
-        return reroll + successes_so_far
-    else:
-        return successes_so_far
+            return reroll + successes_so_far
+        else:
+            return successes_so_far
+
+    return _expand(
+        pool,
+        limit=2,  # to ensure count_successes is called in the interior
+    )
 
 
 @expandable
@@ -72,16 +78,22 @@ def count_banes(pool: PResult) -> Union[H, float]:
     return banes
 
 
-@expandable
-def count_banes_with_push(pool: PResult) -> Union[H, int]:
-    counter = Counter(pool.roll)
-    blanks = counter[YearZeroOutcomes.BLANK]
-    banes_so_far = counter[YearZeroOutcomes.BANE]
-    assert pool.p.is_homogeneous()
+def count_banes_with_push(pool: P) -> H:
+    @expandable
+    def _expand(p_result: PResult) -> Union[H, int]:
+        counter = Counter(p_result.roll)
+        blanks = counter[YearZeroOutcomes.BLANK]
+        banes_so_far = counter[YearZeroOutcomes.BANE]
+        assert p_result.p.is_homogeneous()
 
-    if blanks:
-        reroll = count_banes(pool=blanks @ pool.p[:1])
+        if blanks:
+            reroll = count_banes(pool=blanks @ p_result.p[:1])
 
-        return reroll + banes_so_far
-    else:
-        return banes_so_far
+            return reroll + banes_so_far
+        else:
+            return banes_so_far
+
+    return _expand(
+        pool,
+        limit=2,  # to ensure count_successes is called in the interior
+    )
