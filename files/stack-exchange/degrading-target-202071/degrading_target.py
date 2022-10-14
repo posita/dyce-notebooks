@@ -23,7 +23,7 @@ def degrading_target_nonperformant(
     with small dice or small targets. A *d* of ``#!python H(20)`` and *target* of
     ``#!python 20`` will take eons (maybe literally).
     """
-    adjusted_target = initial_target - tries - 1
+    adjusted_target = initial_target - tries + 1
 
     def _callback(d_result: HResult):
         if d_result.outcome >= adjusted_target:
@@ -50,7 +50,7 @@ def degrading_target_performant(
     particular target. This takes our branching factor from *n* (the number of sides of
     our die) to 2, which leads to a performance of O(*n*), which is totally reasonable.
     """
-    adjusted_target = initial_target - tries - 1
+    adjusted_target = initial_target - tries + 1
     succeeds_or_fails_at_adjusted_target_h = die.ge(adjusted_target)
 
     def _callback(ge_result: HResult):
