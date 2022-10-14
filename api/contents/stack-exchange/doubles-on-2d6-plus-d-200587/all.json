@@ -2,21 +2,9 @@
   "content": [
     {
       "content": null,
-      "created": "2022-10-14T22:24:05.414808Z",
+      "created": "2022-10-14T22:44:14.954926Z",
       "format": null,
-      "last_modified": "2022-10-14T22:23:48.890652Z",
-      "mimetype": null,
-      "name": "doubles_on_2d6_plus_d.ipynb",
-      "path": "stack-exchange/doubles-on-2d6-plus-d-200587/doubles_on_2d6_plus_d.ipynb",
-      "size": 4010,
-      "type": "notebook",
-      "writable": true
-    },
-    {
-      "content": null,
-      "created": "2022-10-14T22:24:05.418808Z",
-      "format": null,
-      "last_modified": "2022-10-14T22:23:48.890652Z",
+      "last_modified": "2022-10-14T22:43:59.410781Z",
       "mimetype": "text/x-python",
       "name": "showit.py",
       "path": "stack-exchange/doubles-on-2d6-plus-d-200587/showit.py",
@@ -26,9 +14,21 @@
     },
     {
       "content": null,
-      "created": "2022-10-14T22:24:05.418808Z",
+      "created": "2022-10-14T22:44:14.954926Z",
       "format": null,
-      "last_modified": "2022-10-14T22:23:48.890652Z",
+      "last_modified": "2022-10-14T22:43:59.410781Z",
+      "mimetype": null,
+      "name": "doubles_on_2d6_plus_d.ipynb",
+      "path": "stack-exchange/doubles-on-2d6-plus-d-200587/doubles_on_2d6_plus_d.ipynb",
+      "size": 4010,
+      "type": "notebook",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2022-10-14T22:44:14.954926Z",
+      "format": null,
+      "last_modified": "2022-10-14T22:43:59.410781Z",
       "mimetype": "text/x-python",
       "name": "doubles_on_2d6_plus_d.py",
       "path": "stack-exchange/doubles-on-2d6-plus-d-200587/doubles_on_2d6_plus_d.py",
@@ -37,9 +37,9 @@
       "writable": true
     }
   ],
-  "created": "2022-10-14T22:24:05.418808Z",
+  "created": "2022-10-14T22:44:14.954926Z",
   "format": "json",
-  "last_modified": "2022-10-14T22:24:05.418808Z",
+  "last_modified": "2022-10-14T22:44:14.954926Z",
   "mimetype": null,
   "name": "doubles-on-2d6-plus-d-200587",
   "path": "stack-exchange/doubles-on-2d6-plus-d-200587",

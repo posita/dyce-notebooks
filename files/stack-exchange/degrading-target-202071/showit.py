@@ -95,8 +95,8 @@ def showit():
             try:
                 adj_method_func = eval(adj_method_custom, adj_method_globals)
             except SyntaxError:
-                exec(adj_method_custom, adj_method_globals)
                 del adj_method_globals["_"]
+                exec(adj_method_custom, adj_method_globals)
                 adj_method_func = adj_method_globals["_"]  # type: ignore
 
         breakdown = degrading_target_customizable_adjustment(
