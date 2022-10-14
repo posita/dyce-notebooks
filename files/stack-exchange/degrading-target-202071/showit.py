@@ -19,6 +19,7 @@ class Die(str, Enum):
     D10 = "d10"
     D12 = "d12"
     D20 = "d20"
+    D100 = "d100"
     CUSTOM = "Custom"
 
 
@@ -29,6 +30,7 @@ DIE_MAP = {
     Die.D10: H(10),
     Die.D12: H(12),
     Die.D20: H(20),
+    Die.D100: H(100),
 }
 
 
