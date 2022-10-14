@@ -2,9 +2,9 @@
   "content": [
     {
       "content": null,
-      "created": "2022-10-14T22:11:09.933331Z",
+      "created": "2022-10-14T22:21:01.200342Z",
       "format": null,
-      "last_modified": "2022-10-14T22:11:09.933331Z",
+      "last_modified": "2022-10-14T22:21:01.200342Z",
       "mimetype": null,
       "name": "stack-exchange",
       "path": "stack-exchange",
@@ -13,9 +13,9 @@
       "writable": true
     }
   ],
-  "created": "2022-10-14T22:11:09.913331Z",
+  "created": "2022-10-14T22:21:01.180342Z",
   "format": "json",
-  "last_modified": "2022-10-14T22:11:09.913331Z",
+  "last_modified": "2022-10-14T22:21:01.180342Z",
   "mimetype": null,
   "name": "",
   "path": "",

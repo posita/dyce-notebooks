@@ -2,9 +2,9 @@
   "content": [
     {
       "content": null,
-      "created": "2022-10-14T22:11:09.913331Z",
+      "created": "2022-10-14T22:21:01.180342Z",
       "format": null,
-      "last_modified": "2022-10-14T22:10:52.973122Z",
+      "last_modified": "2022-10-14T22:20:44.144206Z",
       "mimetype": null,
       "name": "avg_bonus.ipynb",
       "path": "stack-exchange/avg-bonus-201374/avg_bonus.ipynb",
@@ -13,9 +13,9 @@
       "writable": true
     }
   ],
-  "created": "2022-10-14T22:11:09.913331Z",
+  "created": "2022-10-14T22:21:01.180342Z",
   "format": "json",
-  "last_modified": "2022-10-14T22:11:09.913331Z",
+  "last_modified": "2022-10-14T22:21:01.180342Z",
   "mimetype": null,
   "name": "avg-bonus-201374",
   "path": "stack-exchange/avg-bonus-201374",
