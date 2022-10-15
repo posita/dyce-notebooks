@@ -154,7 +154,7 @@ Raw data is below.
     )
 
     def _color_names() -> Iterator[str]:
-        color_names = set(matplotlib.cm.cmap_d.keys())
+        color_names = set(matplotlib.colormaps.keys())
 
         for name in color_names:
             if name + "_r" in color_names:
