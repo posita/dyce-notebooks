@@ -2,21 +2,9 @@
   "content": [
     {
       "content": null,
-      "created": "2022-10-15T02:41:30.557540Z",
+      "created": "2022-10-15T02:45:08.405039Z",
       "format": null,
-      "last_modified": "2022-10-15T02:41:12.701418Z",
-      "mimetype": "text/x-python",
-      "name": "showit.py",
-      "path": "stack-exchange/dpr-195490/showit.py",
-      "size": 5828,
-      "type": "file",
-      "writable": true
-    },
-    {
-      "content": null,
-      "created": "2022-10-15T02:41:30.557540Z",
-      "format": null,
-      "last_modified": "2022-10-15T02:41:12.701418Z",
+      "last_modified": "2022-10-15T02:44:53.333080Z",
       "mimetype": "text/x-python",
       "name": "dpr.py",
       "path": "stack-exchange/dpr-195490/dpr.py",
@@ -26,9 +14,21 @@
     },
     {
       "content": null,
-      "created": "2022-10-15T02:41:30.557540Z",
+      "created": "2022-10-15T02:45:08.405039Z",
       "format": null,
-      "last_modified": "2022-10-15T02:41:12.701418Z",
+      "last_modified": "2022-10-15T02:44:53.333080Z",
+      "mimetype": "text/x-python",
+      "name": "showit.py",
+      "path": "stack-exchange/dpr-195490/showit.py",
+      "size": 5828,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2022-10-15T02:45:08.405039Z",
+      "format": null,
+      "last_modified": "2022-10-15T02:44:53.333080Z",
       "mimetype": null,
       "name": "dpr.ipynb",
       "path": "stack-exchange/dpr-195490/dpr.ipynb",
@@ -37,9 +37,9 @@
       "writable": true
     }
   ],
-  "created": "2022-10-15T02:41:30.557540Z",
+  "created": "2022-10-15T02:45:08.405039Z",
   "format": "json",
-  "last_modified": "2022-10-15T02:41:30.557540Z",
+  "last_modified": "2022-10-15T02:45:08.405039Z",
   "mimetype": null,
   "name": "dpr-195490",
   "path": "stack-exchange/dpr-195490",

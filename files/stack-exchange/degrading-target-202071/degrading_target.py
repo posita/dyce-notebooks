@@ -52,8 +52,8 @@ def degrading_target_performant(
     our die) to 2, which leads to a performance of O(*n*), which is totally reasonable.
     """
     adjusted_target = initial_target - prior_tries
-    succeeds_or_fails_at_adjusted_target_h = die.ge(adjusted_target)
     current_tries = prior_tries + 1
+    succeeds_or_fails_at_adjusted_target_h = die.ge(adjusted_target)
 
     def _callback(ge_result: HResult):
         if ge_result.outcome == 1:
