@@ -1,4 +1,4 @@
-.cache/
+/.cache/
 .jupyterlite.doit.db
 .ipynb_checkpoints/
 __pycache__/

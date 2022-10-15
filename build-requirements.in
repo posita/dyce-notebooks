@@ -1,4 +1,4 @@
 jupyterlab-server
-jupyterlite==0.1.0b11
-jupyterlab-widgets==1.1.1
+jupyterlite==0.1.0b13
+jupyterlab-widgets~=3.0
 pkginfo
