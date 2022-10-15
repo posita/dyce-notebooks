@@ -106,7 +106,7 @@ def showit():
         plot_burst_subplot(
             breakdown,
             alpha=0.5,
-            title=f"Distribution of Number of Tries to Reach Success\nmean: {breakdown.mean():0.02f}\nstdev: {breakdown.stdev():0.02f}",
+            title=f"Distribution of Number of Tries Needed to Reach a Success\nmean: {breakdown.mean():0.02f}\nstdev: {breakdown.stdev():0.02f}",
         )
 
         matplotlib.pyplot.show()
@@ -138,7 +138,7 @@ def showit():
     )
 
     adj_method_custom_widget = widgets.Textarea(
-        value="lambda target, tries: target - (tries - 1) // 2",
+        value="lambda target, prior_tries: target - prior_tries // 2",
         description="Custom",
         disabled=adj_method_widget.value is not AdjMethod.CUSTOM,
         height="auto",
