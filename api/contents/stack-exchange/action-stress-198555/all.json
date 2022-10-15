@@ -2,9 +2,9 @@
   "content": [
     {
       "content": null,
-      "created": "2022-10-14T22:45:04.497528Z",
+      "created": "2022-10-15T02:41:30.553540Z",
       "format": null,
-      "last_modified": "2022-10-14T22:44:49.053269Z",
+      "last_modified": "2022-10-15T02:41:12.697417Z",
       "mimetype": null,
       "name": "action_stress.ipynb",
       "path": "stack-exchange/action-stress-198555/action_stress.ipynb",
@@ -13,9 +13,9 @@
       "writable": true
     }
   ],
-  "created": "2022-10-14T22:45:04.497528Z",
+  "created": "2022-10-15T02:41:30.553540Z",
   "format": "json",
-  "last_modified": "2022-10-14T22:45:04.497528Z",
+  "last_modified": "2022-10-15T02:41:30.553540Z",
   "mimetype": null,
   "name": "action-stress-198555",
   "path": "stack-exchange/action-stress-198555",
