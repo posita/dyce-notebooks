@@ -20,7 +20,7 @@ class Die(str, Enum):
     D12 = "d12"
     D20 = "d20"
     D100 = "d100"
-    CUSTOM = "Custom"
+    CUSTOM = "Custom Die"
 
 
 DIE_MAP = {
@@ -37,7 +37,7 @@ DIE_MAP = {
 class AdjMethod(str, Enum):
     REDUCE_ONCE_PER_TRY = "Reduce Target Once Per Try"
     REDUCE_TWICE_PER_TRY = "Reduce Target Twice Per Try"
-    CUSTOM = "Custom"
+    CUSTOM = "Custom Implementation"
 
 
 ADJ_METHOD_MAP = {
@@ -81,10 +81,17 @@ def showit():
         if die_custom_widget.disabled != (die_enum is not Die.CUSTOM):
             die_custom_widget.disabled = die_enum is not Die.CUSTOM
 
+        die_custom_widget.layout.visibility = (
+            "hidden" if die_custom_widget.disabled else "visible"
+        )
+
         if adj_method_custom_widget.disabled != (
             adj_method_enum is not AdjMethod.CUSTOM
         ):
             adj_method_custom_widget.disabled = adj_method_enum is not AdjMethod.CUSTOM
+            adj_method_custom_widget.layout.visibility = (
+                "hidden" if adj_method_custom_widget.disabled else "visible"
+            )
 
         if adj_method_enum in ADJ_METHOD_MAP:
             adj_method_func = ADJ_METHOD_MAP[adj_method_enum]
@@ -119,8 +126,11 @@ def showit():
 
     die_custom_widget = widgets.Text(
         value="2 @ H(6)  # <-- this means 2d6",
-        description="Custom",
+        description="Value",
         disabled=die_widget.value is not Die.CUSTOM,
+        layout={
+            "visibility": "hidden" if die_widget.value is not Die.CUSTOM else "visible"
+        },
     )
 
     initial_target_widget = widgets.BoundedIntText(
@@ -139,8 +149,13 @@ def showit():
 
     adj_method_custom_widget = widgets.Textarea(
         value="lambda target, prior_tries: target - prior_tries // 2",
-        description="Custom",
+        description="Value",
         disabled=adj_method_widget.value is not AdjMethod.CUSTOM,
+        layout={
+            "visibility": "hidden"
+            if adj_method_widget.value is not AdjMethod.CUSTOM
+            else "visible"
+        },
         height="auto",
         width="auto",
     )
