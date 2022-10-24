@@ -1,5 +1,4 @@
-import matplotlib
-from anydyce.viz import plot_burst_subplot
+from anydyce import HPlotterChooser
 from IPython.display import display
 from ipywidgets import widgets
 from nemesis import nemesis
@@ -26,12 +25,7 @@ def showit():
             their_trait,
             their_initial_chi,
         )
-        plot_burst_subplot(
-            expected_outcome,
-            alpha=0.5,
-            title="Expected Outcome for Player",
-        )
-        matplotlib.pyplot.show()
+        chooser.update_hs((("Expected Outcome for Player", expected_outcome),))
 
     our_yang_pool_size_widget = widgets.IntSlider(
         value=4,
@@ -105,6 +99,8 @@ def showit():
         description="Starting Chi",
     )
 
+    chooser = HPlotterChooser()
+
     display(
         widgets.HBox(
             [
@@ -142,3 +138,5 @@ def showit():
             },
         ),
     )
+
+    chooser.interact()

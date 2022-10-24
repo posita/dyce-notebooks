@@ -1,6 +1,7 @@
 from typing import Callable
 
-from anydyce import BreakoutType, jupyter_visualize
+from anydyce import HPlotterChooser
+from anydyce.viz import PlotWidgets
 from dyce import H
 from expected_damage import (
     TO_HIT_ADV,
@@ -39,8 +40,6 @@ def showit(damage_dice: dict[str, H]):
         target: int,
         crit_method: Callable[[int, H], H],
     ) -> None:
-        crit_dmg_dice_widget.disabled = link_dmg
-
         if link_dmg and crit_dmg_dice_widget.value != norm_dmg_dice_widget.value:
             crit_dmg_dice_widget.value = norm_dmg_dice_widget.value
 
@@ -58,17 +57,21 @@ def showit(damage_dice: dict[str, H]):
             for to_hit_name, to_hit_method in TO_HIT_METHODS.items()
         }
 
-        jupyter_visualize(
-            [
-                (f"{to_hit_name}\n(Mean: {expected_dmg.mean():.3})", expected_dmg)
-                for to_hit_name, expected_dmg in expected_dmg_by_to_hit_method.items()
-            ],
-            default_breakout_type=BreakoutType.BURST,
+        chooser.update_hs(
+            (f"{to_hit_name}\n(Mean: {expected_dmg.mean():.3})", expected_dmg)
+            for to_hit_name, expected_dmg in expected_dmg_by_to_hit_method.items()
         )
 
     norm_dmg_dice_widget = widgets.Dropdown(options=damage_dice, description="Norm Die")
-    crit_dmg_dice_widget = widgets.Dropdown(options=damage_dice, description="Crit Die")
     link_dmg_widget = widgets.Checkbox(value=True, description="Link")
+    crit_dmg_dice_widget = widgets.Dropdown(
+        options=damage_dice, description="Crit Die", disabled=link_dmg_widget.value
+    )
+
+    def _handle_link_dmg(change) -> None:
+        crit_dmg_dice_widget.disabled = change["new"]
+
+    link_dmg_widget.observe(_handle_link_dmg, names="value")
 
     norm_dmg_mod_widget = widgets.IntSlider(
         value=0,
@@ -101,10 +104,12 @@ def showit(damage_dice: dict[str, H]):
         options=CRIT_METHODS, description="Crit Method"
     )
 
+    plot_widgets = PlotWidgets(initial_burst_zero_fill_normalize=True)
+    chooser = HPlotterChooser(plot_widgets=plot_widgets)
+
     display(
         widgets.VBox(
             [
-                widgets.HTML(value="<h1>Mechanic</h1>"),
                 target_widget,
                 widgets.HBox(
                     [
@@ -120,9 +125,11 @@ def showit(damage_dice: dict[str, H]):
                     ],
                 ),
                 crit_method_widget,
-                widgets.HTML(value="<h1>Visualization</h1>"),
             ]
-        ),
+        )
+    )
+
+    display(
         widgets.interactive_output(
             _display,
             {
@@ -134,5 +141,7 @@ def showit(damage_dice: dict[str, H]):
                 "target": target_widget,
                 "crit_method": crit_method_widget,
             },
-        ),
+        )
     )
+
+    chooser.interact()

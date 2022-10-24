@@ -12,6 +12,9 @@ __all__ = (
 )
 
 
+AdjustedTargetT = Callable[[int, int], int]
+
+
 def degrading_target_nonperformant(
     die: H,
     initial_target: int,
@@ -87,7 +90,7 @@ def reduce_twice_per_try(initial_target: int, prior_tries: int) -> int:
 def degrading_target_customizable_adjustment(
     die: H,
     initial_target: int,
-    adjusted_target_func: Callable[[int, int], int] = reduce_once_per_try,
+    adjusted_target_func: AdjustedTargetT = reduce_once_per_try,
     prior_tries: int = 0,
 ) -> H:
     r"""

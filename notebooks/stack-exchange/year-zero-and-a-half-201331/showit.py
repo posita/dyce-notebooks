@@ -1,9 +1,7 @@
 from itertools import chain
 from math import trunc
-from typing import Iterator
 
-import matplotlib.pyplot
-from anydyce.viz import DEFAULT_BURST_ALPHA, DEFAULT_GRAPH_COLOR, plot_burst
+from anydyce import jupyter_visualize
 from dyce import H
 from IPython.display import display
 from ipywidgets import widgets
@@ -20,8 +18,6 @@ def showit():
     def _display(
         pool_size: int,
         round_halves: bool,
-        burst_graph_color: str,
-        alpha: float,
     ) -> None:
         successes = count_successes(pool=pool_size @ dyz)
 
@@ -70,47 +66,13 @@ def showit():
             banes_with_push_empty
         )
 
-        matplotlib.rcParams.update(matplotlib.rcParamsDefault)
-        rows, columns = (1, 3)
-        grid = (rows, columns)
-
-        row, col = (0, 0)
-        ax = matplotlib.pyplot.subplot2grid(grid, (row, col))
-        plot_burst(
-            ax,
-            h_inner=successes,
-            h_outer=successes_legacy,
-            title="Succ. After First Roll",
-            inner_color=burst_graph_color,
-            alpha=alpha,
+        jupyter_visualize(
+            [
+                ("Succ. After First Roll", successes, successes_legacy),
+                ("Succ. After Push", successes_with_push, successes_with_push_legacy),
+                ("Banes After Push", banes_with_push, banes_with_push_legacy),
+            ]
         )
-
-        row, col = (0, 1)
-        ax = matplotlib.pyplot.subplot2grid(grid, (row, col))
-        plot_burst(
-            ax,
-            h_inner=successes_with_push,
-            h_outer=successes_with_push_legacy,
-            title="Succ. After Push",
-            inner_color=burst_graph_color,
-            alpha=alpha,
-        )
-
-        row, col = (0, 2)
-        ax = matplotlib.pyplot.subplot2grid(grid, (row, col))
-        plot_burst(
-            ax,
-            h_inner=banes_with_push,
-            h_outer=banes_with_push_legacy,
-            title="Banes After Push",
-            inner_color=burst_graph_color[:-2]
-            if burst_graph_color.endswith("_r")
-            else burst_graph_color + "_r",  # use reverse color set for banes
-            alpha=alpha,
-        )
-
-        matplotlib.pyplot.tight_layout()
-        matplotlib.pyplot.show()
 
         display(
             widgets.HTML(
@@ -118,6 +80,7 @@ def showit():
 The burst graphs above depict comparisons between aspects of the legacy Year Zero Engine mechanic and the half-success modification.
 Outer graphs depict the legacy mechanic.
 Inner graphs depict the modification.
+Bane counts are negative to signal that they work <em>against</em> the success mechanic.
 Raw data is below.
 """
             )
@@ -153,43 +116,13 @@ Raw data is below.
         description="Round Half Successes",
     )
 
-    def _color_names() -> Iterator[str]:
-        color_names = set(matplotlib.colormaps.keys())
-
-        for name in color_names:
-            if name + "_r" in color_names:
-                yield name
-                yield name + "_r"
-
-    burst_graph_color_widget = widgets.Dropdown(
-        value=DEFAULT_GRAPH_COLOR,
-        options=sorted(_color_names()),
-        description="Graph Colors",
-    )
-
-    alpha_widget = widgets.FloatSlider(
-        value=DEFAULT_BURST_ALPHA,
-        min=0.0,
-        max=1.0,
-        step=0.1,
-        continuous_update=False,
-        description="Opacity",
-    )
-
     display(
-        widgets.VBox(
-            [
-                widgets.HBox([pool_size_widget, round_halves_widget]),
-                widgets.HBox([burst_graph_color_widget, alpha_widget]),
-            ]
-        ),
+        widgets.HBox([pool_size_widget, round_halves_widget]),
         widgets.interactive_output(
             _display,
             {
                 "pool_size": pool_size_widget,
                 "round_halves": round_halves_widget,
-                "burst_graph_color": burst_graph_color_widget,
-                "alpha": alpha_widget,
             },
         ),
     )
