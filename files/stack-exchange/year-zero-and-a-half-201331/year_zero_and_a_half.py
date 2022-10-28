@@ -125,7 +125,7 @@ def count_banes_with_push(pool: P) -> H:
         else:
             return banes_this_roll
 
-    return _expand(
+    return -_expand(
         pool,
         limit=2,  # to ensure count_banes is called in the interior
     )

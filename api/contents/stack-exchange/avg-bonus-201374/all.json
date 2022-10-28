@@ -2,20 +2,20 @@
   "content": [
     {
       "content": null,
-      "created": "2022-10-15T18:27:37.512246Z",
+      "created": "2022-10-28T16:47:18.195349Z",
       "format": null,
-      "last_modified": "2022-10-15T18:27:21.760186Z",
+      "last_modified": "2022-10-28T16:47:04.207399Z",
       "mimetype": null,
       "name": "avg_bonus.ipynb",
       "path": "stack-exchange/avg-bonus-201374/avg_bonus.ipynb",
-      "size": 155426,
+      "size": 4588,
       "type": "notebook",
       "writable": true
     }
   ],
-  "created": "2022-10-15T18:27:37.512246Z",
+  "created": "2022-10-28T16:47:18.195349Z",
   "format": "json",
-  "last_modified": "2022-10-15T18:27:37.512246Z",
+  "last_modified": "2022-10-28T16:47:18.195349Z",
   "mimetype": null,
   "name": "avg-bonus-201374",
   "path": "stack-exchange/avg-bonus-201374",

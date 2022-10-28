@@ -1,5 +1,4 @@
-import matplotlib.pyplot
-from anydyce.viz import plot_burst_subplot
+from anydyce import HPlotterChooser
 from dpr import (
     ContestType,
     expected_dmg_frm_rnd_pc_attacks,
@@ -66,13 +65,14 @@ def showit():
                 rof=rof,
             )
 
-        plot_burst_subplot(
-            expected_dmg,
-            alpha=0.5,
-            title=f"Expected damage for round\nmean: {expected_dmg.mean():0.02f}\nstdev: {expected_dmg.stdev():0.02f}",
+        chooser.update_hs(
+            (
+                (
+                    f"Expected damage for round\nmean: {expected_dmg.mean():0.02f}\nstdev: {expected_dmg.stdev():0.02f}",
+                    expected_dmg,
+                ),
+            )
         )
-
-        matplotlib.pyplot.show()
 
     contest_type_widget = widgets.RadioButtons(
         value=ContestType.PC_ATTACKS,
@@ -168,6 +168,8 @@ def showit():
         description="Armor",
     )
 
+    chooser = HPlotterChooser()
+
     display(
         widgets.VBox(
             [
@@ -211,3 +213,5 @@ def showit():
             },
         ),
     )
+
+    chooser.interact()
