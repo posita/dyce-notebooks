@@ -2,7 +2,7 @@
   "jupyter-config-data": {
     "appName": "dyce-notebooks",
     "appUrl": "./lab",
-    "appVersion": "0.1.0-beta.14",
+    "appVersion": "0.1.0-beta.16",
     "baseUrl": "./",
     "collaborative": false,
     "contentStorageDrivers": [
