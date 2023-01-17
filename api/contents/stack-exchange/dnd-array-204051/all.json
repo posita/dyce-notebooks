@@ -2,20 +2,20 @@
   "content": [
     {
       "content": null,
-      "created": "2023-01-17T16:55:19.871274Z",
+      "created": "2023-01-17T17:01:49.301077Z",
       "format": null,
-      "last_modified": "2023-01-17T16:55:03.427262Z",
+      "last_modified": "2023-01-17T17:01:30.513251Z",
       "mimetype": null,
       "name": "dnd_array.ipynb",
       "path": "stack-exchange/dnd-array-204051/dnd_array.ipynb",
-      "size": 3274,
+      "size": 3326,
       "type": "notebook",
       "writable": true
     }
   ],
-  "created": "2023-01-17T16:55:19.871274Z",
+  "created": "2023-01-17T17:01:49.301077Z",
   "format": "json",
-  "last_modified": "2023-01-17T16:55:19.871274Z",
+  "last_modified": "2023-01-17T17:01:49.301077Z",
   "mimetype": null,
   "name": "dnd-array-204051",
   "path": "stack-exchange/dnd-array-204051",
