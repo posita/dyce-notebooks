@@ -2,20 +2,32 @@
   "content": [
     {
       "content": null,
-      "created": "2023-01-17T17:01:49.309077Z",
+      "created": "2023-03-31T15:35:51.189628Z",
       "format": null,
-      "last_modified": "2023-01-17T17:01:49.309077Z",
+      "last_modified": "2023-03-31T15:35:51.189628Z",
       "mimetype": null,
       "name": "stack-exchange",
       "path": "stack-exchange",
       "size": null,
       "type": "directory",
       "writable": true
+    },
+    {
+      "content": null,
+      "created": "2023-03-31T15:35:51.177628Z",
+      "format": null,
+      "last_modified": "2023-03-31T15:35:51.177628Z",
+      "mimetype": null,
+      "name": "github",
+      "path": "github",
+      "size": null,
+      "type": "directory",
+      "writable": true
     }
   ],
-  "created": "2023-01-17T17:01:49.301077Z",
+  "created": "2023-03-31T15:35:51.177628Z",
   "format": "json",
-  "last_modified": "2023-01-17T17:01:49.301077Z",
+  "last_modified": "2023-03-31T15:35:51.177628Z",
   "mimetype": null,
   "name": "",
   "path": "",
