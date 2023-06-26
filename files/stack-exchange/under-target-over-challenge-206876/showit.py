@@ -21,7 +21,7 @@ def showit(
         chooser.update_hs(
             (
                 (
-                    f"{player_die} vs. {target} and {challenge_die}",
+                    f"{player_die} vs. {target} w/ {challenge_die}",
                     expected_result(
                         player_dice[player_die], challenge_dice[challenge_die], target
                     ),
@@ -63,7 +63,10 @@ def showit(
     )
 
     chooser = HPlotterChooser(
-        plot_widgets=PlotWidgets(initial_burst_zero_fill_normalize=True)
+        plot_widgets=PlotWidgets(
+            initial_burst_cmap_inner="Set2",
+            initial_burst_zero_fill_normalize=True,
+        )
     )
 
     display(
