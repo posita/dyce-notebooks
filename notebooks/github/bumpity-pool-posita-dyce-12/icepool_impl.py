@@ -6,18 +6,12 @@ from dyce import H
 from dyce.evaluation import _LimitT
 
 # Local imports
-from dyce_impl import _aggregate_exploded_deltas, _explosions_by_outcome
+from dyce_impl import Pool, _aggregate_exploded_deltas, _explosions_by_outcome
 from params import Params
 
 __all__ = ()
 
 
-class Pool(IntEnum):
-    STANDARD = auto()
-    BUMP = auto()
-
-
-assert Pool.STANDARD < Pool.BUMP
 _StateT = tuple[tuple[int, Pool], ...]
 
 
@@ -35,6 +29,8 @@ class IcepoolMechanic(icepool.MultisetEvaluator):
         explode_limit: _LimitT,
     ):
         self._params = params
+        self._die = die
+        self._explode_limit = explode_limit
         self.pool_size = params.num_std + params.num_bump
         self.extra_std = min(params.extra_std, self.pool_size)
         self.extra_bump = min(params.extra_bump, self.pool_size)
@@ -51,8 +47,6 @@ class IcepoolMechanic(icepool.MultisetEvaluator):
             self._order = icepool.Order.Descending
             self._roll_slice = slice(None)
             self._extra_bonus = 0
-
-        self._explosions_by_outcome = _explosions_by_outcome_icepool(die, explode_limit)
 
     def final_outcome(self, final_state: _StateT) -> icepool.Die | int:
         final_state = final_state[self._roll_slice]
@@ -74,7 +68,9 @@ class IcepoolMechanic(icepool.MultisetEvaluator):
             total_outcome
             + sum(final_state[bonus_die][0] for bonus_die in self._params.bonus_dice)
             + self._extra_bonus
-            + self._explosions_by_outcome.get(check_outcome, 0)
+            + _explosions_by_outcome_icepool(self._die, self._explode_limit).get(
+                check_outcome, 0
+            )
         )
 
     def next_state(
@@ -83,8 +79,8 @@ class IcepoolMechanic(icepool.MultisetEvaluator):
         if state is None:
             state = ()
 
-        new_std = std_count * ((outcome, Pool.STANDARD),)
-        new_bump = bump_count * ((outcome, Pool.BUMP),)
+        new_std = ((outcome, Pool.STANDARD),) * std_count
+        new_bump = ((outcome, Pool.BUMP),) * bump_count
 
         if self._order is icepool.Order.Ascending:
             return state + new_std + new_bump

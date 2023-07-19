@@ -19,6 +19,8 @@ _OVERRIDE_DIE_MAP = {
     "d10": H(10),
     "d12": H(12),
     "d20": H(20),
+    "d0": H({0: 1}),
+    "d10*2": H(10) * 2,
 }
 
 
@@ -42,22 +44,19 @@ def main() -> None:
         t1 = time()
         print(f"\n    dyce (fudged; {t1 - t0:.2f} seconds) ->")
         print(f"        {dyce_result}")
-
-        if params.extra_bump - params.extra_std:
-            mechanic_icepool_func = mechanic_icepool_fudged
-            icepool_desc = "fudged"
-        else:
-            mechanic_icepool_func = mechanic_icepool
-            icepool_desc = "real"
-
         t0 = time()
-        icepool_result = mechanic_icepool_func(params, die, explode_limit)
+        icepool_result = mechanic_icepool_fudged(params, die, explode_limit)
         t1 = time()
-        print(f"\n    icepool ({icepool_desc}; {t1 - t0:.2f} seconds) ->")
+        print(f"\n    icepool (fudged; {t1 - t0:.2f} seconds) ->")
         print(f"        {icepool_result}")
+        assert dyce_result == icepool_result
 
-        if icepool_desc == "fudged":
-            assert dyce_result == icepool_result
+        if params.extra_bump == params.extra_std == 0:
+            t0 = time()
+            icepool_result = mechanic_icepool(params, die, explode_limit)
+            t1 = time()
+            print(f"\n    icepool (real; {t1 - t0:.2f} seconds) ->")
+            print(f"        {icepool_result}")
 
 
 if __name__ == "__main__":

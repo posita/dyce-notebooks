@@ -1,3 +1,4 @@
+from enum import IntEnum, auto
 from functools import cache
 
 from dyce import H, P
@@ -7,6 +8,14 @@ from dyce.evaluation import HResult, PResult, _LimitT, explode, foreach
 from params import Params
 
 __all__ = ()
+
+
+class Pool(IntEnum):
+    STANDARD = auto()
+    BUMP = auto()
+
+
+assert Pool.STANDARD < Pool.BUMP
 
 
 def mechanic_dyce_fudged(
@@ -40,32 +49,30 @@ def mechanic_dyce_fudged(
     p_bump = (params.num_bump + extra_bump) @ P(die)
 
     def _mechanic(std: PResult, bump: PResult | None = None):
-        roll = list(std.roll)
+        roll = list((outcome, Pool.STANDARD) for outcome in std.roll)
 
         if bump is not None:
-            roll.extend(bump.roll)
-            bumped_outcomes = set(bump.roll)
-        else:
-            bumped_outcomes = set()
+            roll.extend((outcome, Pool.BUMP) for outcome in bump.roll)
 
         roll.sort()
         roll = roll[roll_slice]
         assert len(roll) == pool_size
         check_die = params.set_die
+        check_outcome, set_type = roll[check_die]
 
-        if roll[check_die] in bumped_outcomes:
+        if set_type is Pool.BUMP:
             check_die = (check_die + 1) % len(roll)
+            check_outcome, _ = roll[check_die]
 
-        check_outcome = roll[check_die]
         total_outcome = check_outcome
 
         if check_die < params.set_die:
-            wrapped_outcome = roll[params.set_die]
+            wrapped_outcome, _ = roll[params.set_die]
             total_outcome += wrapped_outcome
 
         return (
             total_outcome
-            + sum(roll[bonus_die] for bonus_die in params.bonus_dice)
+            + sum(roll[bonus_die][0] for bonus_die in params.bonus_dice)
             + extra_bonus
         )
 
