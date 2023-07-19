@@ -81,7 +81,7 @@ def showit(
             "4": 4,
             "5": 5,
         },
-        description="Exp. Depth",
+        description="Exp. Limit",
         continuous_update=False,
         orientation="horizontal",
         readout=True,
