@@ -10,12 +10,12 @@ __all__ = ()
 
 @dataclass
 class Params:
-    set_die: int  # zero-indexed, i.e., [0, num_std + num_bump)
     num_std: int
     num_bump: int
+    set_die: int  # zero-indexed, i.e., [0, num_std + num_bump)
+    bonus_dice: tuple[int, ...] = ()
     extra_std: int = 0
     extra_bump: int = 0
-    bonus_dice: tuple[int, ...] = ()
     comment: str = ""
     override_die: H | None = None
     override_die_str: str | None = None
@@ -24,11 +24,11 @@ class Params:
         r"""
     ^
     (?:\[(?P<override>[^]]+)\])?\s*
-    (?P<std>[1-9]\d*)\s*s\s*
-    (?P<bump>(?:[1-9]\d*)?\d)\s*b\s*
-    @\s*(?P<set>[1-9]\d*)\s*  # one-indexed (not zero-) for readability
-    (?:<\s*(?P<ex_std>[1-9]\d*)|>\s*(?P<ex_bump>[1-9]\d*)\s*)?
-    (?P<bonuses>(?:\+\s*@\s*[1-9]\d*\s*)*)  # one-indexed (not zero-) for readability
+    (?P<std>\+?[1-9]\d*)\s*s\s*
+    (?P<bump>(?:\+?[1-9]\d*)?\d)\s*b\s*
+    @\s*(?P<set>\+?[1-9]\d*)\s*  # one-indexed (not zero-) for readability
+    (?:<\s*(?P<ex_std>\+?[1-9]\d*)|>\s*(?P<ex_bump>\+?[1-9]\d*)\s*)?
+    (?P<bonuses>(?:\+\s*@\s*\+?[1-9]\d*\s*)*)  # one-indexed (not zero-) for readability
     (?:\#\s*(?P<comment>.*))?
     $
     """,
@@ -59,9 +59,9 @@ class Params:
                 set_str, std_str, bump_str, bonuses_str = m.group(
                     "set", "std", "bump", "bonuses"
                 )
-                set_die = int(set_str) - 1  # translate to zero-indexed
                 num_std = int(std_str)
                 num_bump = int(bump_str)
+                set_die = int(set_str) - 1  # translate to zero-indexed
                 bonus_dice = tuple(
                     int(bonus_str) - 1  # translate to zero-indexed
                     for bonus_str in cls.BONUS_RE.findall(bonuses_str)
@@ -78,12 +78,12 @@ class Params:
                 ), f"must provide override die map if overriding dice ({override_str})"
 
                 params = Params(
-                    set_die,
                     num_std,
                     num_bump,
+                    set_die,
+                    bonus_dice,
                     ex_std,
                     ex_bump,
-                    bonus_dice,
                     comment,
                     override_die_map[override_str] if override_str else None,  # type: ignore
                     override_str or None,
@@ -96,12 +96,12 @@ class Params:
 
     def __str__(self) -> str:
         override_die = f"[{self.override_die_str}]" if self.override_die_str else ""
+        bonuses = "".join(f"+@{bonus_die + 1}" for bonus_die in self.bonus_dice)
         extra_std = f"<{self.extra_std}" if self.extra_std else ""
         extra_bump = f">{self.extra_bump}" if self.extra_bump else ""
-        bonuses_str = "".join(f"+@{bonus_die + 1}" for bonus_die in self.bonus_dice)
         comment = f"  # {self.comment}" if self.comment else ""
 
-        return f"{override_die}{self.num_std}s{self.num_bump}b@{self.set_die + 1}{extra_std or extra_bump}{bonuses_str}{comment}"
+        return f"{override_die}{self.num_std}s{self.num_bump}b@{self.set_die + 1}{extra_std or extra_bump}{bonuses}{comment}"
 
     def __post_init__(self) -> None:
         pool_size = self.num_std + self.num_bump
