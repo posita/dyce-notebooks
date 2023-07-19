@@ -2,9 +2,9 @@
   "content": [
     {
       "content": null,
-      "created": "2023-07-19T02:30:46.979602Z",
+      "created": "2023-07-19T02:33:51.671717Z",
       "format": null,
-      "last_modified": "2023-07-19T02:30:11.595437Z",
+      "last_modified": "2023-07-19T02:33:04.899223Z",
       "mimetype": "text/x-python",
       "name": "showit.py",
       "path": "stack-exchange/degrading-target-202071/showit.py",
@@ -14,9 +14,9 @@
     },
     {
       "content": null,
-      "created": "2023-07-19T02:30:46.979602Z",
+      "created": "2023-07-19T02:33:51.671717Z",
       "format": null,
-      "last_modified": "2023-07-19T02:30:11.595437Z",
+      "last_modified": "2023-07-19T02:33:04.899223Z",
       "mimetype": null,
       "name": "degrading_target.ipynb",
       "path": "stack-exchange/degrading-target-202071/degrading_target.ipynb",
@@ -26,9 +26,9 @@
     },
     {
       "content": null,
-      "created": "2023-07-19T02:30:46.979602Z",
+      "created": "2023-07-19T02:33:51.671717Z",
       "format": null,
-      "last_modified": "2023-07-19T02:30:11.595437Z",
+      "last_modified": "2023-07-19T02:33:04.899223Z",
       "mimetype": "text/x-python",
       "name": "degrading_target.py",
       "path": "stack-exchange/degrading-target-202071/degrading_target.py",
@@ -37,9 +37,9 @@
       "writable": true
     }
   ],
-  "created": "2023-07-19T02:30:46.979602Z",
+  "created": "2023-07-19T02:33:51.671717Z",
   "format": "json",
-  "last_modified": "2023-07-19T02:30:46.979602Z",
+  "last_modified": "2023-07-19T02:33:51.671717Z",
   "mimetype": null,
   "name": "degrading-target-202071",
   "path": "stack-exchange/degrading-target-202071",
