@@ -16,7 +16,7 @@
       {
         "extension": "./extension",
         "liteExtension": false,
-        "load": "static/remoteEntry.35e76720037cafa02724.js",
+        "load": "static/remoteEntry.98b8a827bfc5f86e95d2.js",
         "name": "@jupyter-widgets/jupyterlab-manager"
       },
       {
