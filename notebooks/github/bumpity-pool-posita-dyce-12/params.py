@@ -27,7 +27,7 @@ class Params:
     (?P<std>\+?[1-9]\d*)\s*s\s*
     (?P<bump>(?:\+?[1-9]\d*)?\d)\s*b\s*
     @\s*(?P<set>\+?[1-9]\d*)\s*  # one-indexed (not zero-) for readability
-    (?:<\s*(?P<ex_std>\+?[1-9]\d*)|>\s*(?P<ex_bump>\+?[1-9]\d*)\s*)?
+    (?:<\s*(?P<ex_std>\+?[1-9]\d*)|>\s*(?P<ex_bump>\+?[1-9]\d*))?\s*
     (?P<bonuses>(?:\+\s*@\s*\+?[1-9]\d*\s*)*)  # one-indexed (not zero-) for readability
     (?:\#\s*(?P<comment>.*))?
     $
