@@ -3,7 +3,11 @@ from fractions import Fraction
 from time import time
 
 from dyce import H
-from dyce.evaluation import _LimitT
+
+try:
+    from dyce.evaluation import LimitT
+except ImportError:
+    from dyce.evaluation import _LimitT as LimitT
 
 # Local imports
 from dyce_impl import Params, mechanic_dyce_fudged
@@ -26,7 +30,7 @@ _OVERRIDE_DIE_MAP = {
 
 def main() -> None:
     die = H(20)  # d20
-    explode_limit: _LimitT = Fraction(1, 10_000)
+    explode_limit: LimitT = Fraction(1, 10_000)
 
     for notation in sys.argv[1:]:
         try:
@@ -44,19 +48,21 @@ def main() -> None:
         t1 = time()
         print(f"\n    dyce (fudged; {t1 - t0:.2f} seconds) ->")
         print(f"        {dyce_result}")
-        t0 = time()
-        icepool_result = mechanic_icepool_fudged(params, die, explode_limit)
-        t1 = time()
-        print(f"\n    icepool (fudged; {t1 - t0:.2f} seconds) ->")
-        print(f"        {icepool_result}")
-        assert dyce_result == icepool_result
 
-        if params.extra_bump == params.extra_std == 0:
+        if False:
             t0 = time()
-            icepool_result = mechanic_icepool(params, die, explode_limit)
+            icepool_result = mechanic_icepool_fudged(params, die, explode_limit)
             t1 = time()
-            print(f"\n    icepool (real; {t1 - t0:.2f} seconds) ->")
+            print(f"\n    icepool (fudged; {t1 - t0:.2f} seconds) ->")
             print(f"        {icepool_result}")
+            assert dyce_result == icepool_result
+
+            if params.extra_bmp == params.extra_std == 0:
+                t0 = time()
+                icepool_result = mechanic_icepool(params, die, explode_limit)
+                t1 = time()
+                print(f"\n    icepool (real; {t1 - t0:.2f} seconds) ->")
+                print(f"        {icepool_result}")
 
 
 if __name__ == "__main__":

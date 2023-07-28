@@ -2,7 +2,12 @@ from enum import IntEnum, auto
 from functools import cache
 
 from dyce import H, P
-from dyce.evaluation import HResult, PResult, _LimitT, explode, foreach
+from dyce.evaluation import HResult, PResult, explode, foreach
+
+try:
+    from dyce.evaluation import LimitT
+except ImportError:
+    from dyce.evaluation import _LimitT as LimitT
 
 # Local imports
 from params import Params
@@ -21,38 +26,38 @@ assert Pool.STANDARD < Pool.BUMP
 def mechanic_dyce_fudged(
     params: Params,
     die: H,
-    explode_limit: _LimitT = 0,
+    explode_limit: LimitT = 0,
 ) -> H:
     r"""
     *set_die* is the zero-based index into each roll (i.e., on the interval ``#!python
-    [0, num_std + num_bump)``) for determining the check die. *num_std* is how many of
-    *die* are in the standard pool. *num_bump* is how many of *die* are in the bump
-    pool. Note this interface only allows for homogeneous pools. *bonus_dice* are an
-    optional sequence of zero-based indexes into each roll whose values are added to the
-    total. *explode_limit* has same meaning as ``#!python dyce.evaluation.expandable``.
+    [0, num_std + num_bmp)``) for determining the check die. *num_std* is how many of
+    *die* are in the standard pool. *num_bmp* is how many of *die* are in the bump pool.
+    Note this interface only allows for homogeneous pools. *bonus_dice* are an optional
+    sequence of zero-based indexes into each roll whose values are added to the total.
+    *explode_limit* has same meaning as ``#!python dyce.evaluation.expandable``.
     """
-    pool_size = params.num_std + params.num_bump
+    pool_size = params.num_std + params.num_bmp
     extra_std = min(params.extra_std, pool_size)
-    extra_bump = min(params.extra_bump, pool_size)
+    extra_bmp = min(params.extra_bmp, pool_size)
 
     if params.extra_std:
         extra_bonus = -2 * max(params.extra_std - pool_size, 0)
         roll_slice = slice(None, -extra_std)
-    elif params.extra_bump:
-        extra_bonus = 2 * max(params.extra_bump - pool_size, 0)
-        roll_slice = slice(extra_bump, None)
+    elif params.extra_bmp:
+        extra_bonus = 2 * max(params.extra_bmp - pool_size, 0)
+        roll_slice = slice(extra_bmp, None)
     else:
         extra_bonus = 0
         roll_slice = slice(None)
 
     p_std = (params.num_std + extra_std) @ P(die)
-    p_bump = (params.num_bump + extra_bump) @ P(die)
+    p_bmp = (params.num_bmp + extra_bmp) @ P(die)
 
-    def _mechanic(std: PResult, bump: PResult | None = None):
+    def _mechanic(std: PResult, bmp: PResult | None = None):
         roll = list((outcome, Pool.STANDARD) for outcome in std.roll)
 
-        if bump is not None:
-            roll.extend((outcome, Pool.BUMP) for outcome in bump.roll)
+        if bmp is not None:
+            roll.extend((outcome, Pool.BUMP) for outcome in bmp.roll)
 
         roll.sort()
         roll = roll[roll_slice]
@@ -76,8 +81,8 @@ def mechanic_dyce_fudged(
             + extra_bonus
         )
 
-    if p_bump:
-        unexploded_result = foreach(_mechanic, p_std, p_bump)
+    if p_bmp:
+        unexploded_result = foreach(_mechanic, p_std, p_bmp)
     else:
         unexploded_result = foreach(_mechanic, p_std)
 
@@ -85,7 +90,7 @@ def mechanic_dyce_fudged(
 
 
 @cache
-def _aggregate_exploded_deltas(die: H, explode_limit: _LimitT):
+def _aggregate_exploded_deltas(die: H, explode_limit: LimitT):
     def _func(h_res: HResult):
         return _explosions_by_outcome(h_res.h, explode_limit).get(h_res.outcome, 0)  # type: ignore
 
@@ -93,7 +98,7 @@ def _aggregate_exploded_deltas(die: H, explode_limit: _LimitT):
 
 
 @cache
-def _explosions_by_outcome(die: H, explode_limit: _LimitT) -> dict[int, H]:
+def _explosions_by_outcome(die: H, explode_limit: LimitT) -> dict[int, H]:
     if explode_limit <= 0:
         return {}
     else:
