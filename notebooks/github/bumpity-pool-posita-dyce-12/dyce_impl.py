@@ -1,3 +1,4 @@
+import unittest
 from enum import IntEnum, auto
 from functools import cache
 
@@ -27,6 +28,15 @@ def mechanic_dyce_fudged(
     params: Params,
     die: H,
     explode_limit: LimitT = 0,
+) -> H:
+    return mechanic_dyce_base(params, die) + _aggregate_exploded_deltas(
+        die, explode_limit
+    )
+
+
+def mechanic_dyce_base(
+    params: Params,
+    die: H,
 ) -> H:
     r"""
     *set_die* is the zero-based index into each roll (i.e., on the interval ``#!python
@@ -86,7 +96,7 @@ def mechanic_dyce_fudged(
     else:
         unexploded_result = foreach(_mechanic, p_std)
 
-    return unexploded_result + _aggregate_exploded_deltas(die, explode_limit)
+    return unexploded_result
 
 
 @cache
@@ -111,3 +121,185 @@ def _explosions_by_outcome(die: H, explode_limit: LimitT) -> dict[int, H]:
             )
             for outcome in die
         }
+
+
+class TestExplosions(unittest.TestCase):
+    def test_explosions_by_outcome(self):
+        d2 = H(2)
+        self.assertEqual(_explosions_by_outcome(d2, explode_limit=0), {})
+        self.assertEqual(
+            _explosions_by_outcome(d2, explode_limit=1),
+            {
+                # H(2).eq(1) -> H({False: 1, True: 1}) ; explode(H(2), limit=1) -> H({2: 3, 3: 1})  # i.e., 1+1 (2) * 1, 1+2 (3) * 1, 2 * 2
+                1: H({0: 4, 2: 3, 3: 1}),
+                # H(2).eq(2) -> H({False: 1, True: 1}) ; explode(H(2), limit=1) -> H({2: 3, 3: 1})  # i.e., 1 * 2, 2+1 (3) * 1, 2+2 (4) * 1
+                2: H({0: 4, 1: 2, 3: 1, 4: 1}),
+            },
+        )
+        self.assertEqual(
+            _explosions_by_outcome(H({1: 1, 2: 2}), explode_limit=1),
+            {
+                # H({1: 1, 2: 2}).eq(1) -> H({False: 2, True: 1}) ; explode(H({1: 1, 2: 2}), limit=1) -> H({2: 7, 3: 2})  # i.e., 1+1 (2) * 1, 1+2 (3) * 2, 2 * 6
+                1: H({0: 18, 2: 7, 3: 2}),
+                # H({1: 1, 2: 2}).eq(2) -> H({False: 1, True: 2}) ; explode(H({1: 1, 2: 2}), limit=1) -> H({1: 3, 2: 2, 3: 4})  # i.e., 1 * 3, 2+1 (3) * 2, 2+2 (4) * 4
+                2: H({0: 9, 1: 6, 3: 4, 4: 8}),
+            },
+        )
+        self.assertEqual(
+            _explosions_by_outcome(d2, explode_limit=2),
+            {
+                # H(2).eq(1) -> H({False: 1, True: 1}) ; explode(H(2), limit=1) -> H({2: 4, 3: 3, 4: 1})  # i.e., 1+1+1 (3) * 1, 1+1+2 (4) * 1, 1+2 (3) * 2, 2 * 4
+                1: H({0: 8, 2: 4, 3: 3, 4: 1}),
+                # H(2).eq(2) -> H({False: 1, True: 1}) ; explode(H(2), limit=1) -> H({1: 4, 3: 2, 5: 1, 6: 1})  # i.e., 1 * 4, 2+1 (3) * 2, 2+2+1 (5) * 1, 2+2+2 (6) * 1
+                2: H({0: 8, 1: 4, 3: 2, 5: 1, 6: 1}),
+            },
+        )
+
+    def test_aggregate_exploded_deltas(self):
+        d2 = H(2)
+        self.assertEqual(_aggregate_exploded_deltas(d2, 0), H({0: 1}))
+        self.assertEqual(_aggregate_exploded_deltas(d2, 1), H({0: 2, 1: 1, 2: 1}))
+        self.assertEqual(
+            _aggregate_exploded_deltas(H({1: 1, 2: 2}), 1), H({0: 12, 1: 5, 2: 10})
+        )
+        self.assertEqual(
+            _aggregate_exploded_deltas(d2, 2), H({0: 8, 1: 2, 2: 3, 3: 2, 4: 1})
+        )
+
+
+class TestMechanic(unittest.TestCase):
+    def test_base(self):
+        d2, d6 = H(2), H(6)
+
+        notation = "1s0b@1"
+        (params,) = Params.parse_from_notation(notation)
+        self.assertEqual(mechanic_dyce_base(params, d2), d2)
+
+        notation = "1s1b@2"
+        (params,) = Params.parse_from_notation(notation)
+        self.assertEqual(mechanic_dyce_base(params, d2), H({2: 2, 3: 1, 4: 1}))
+
+        notation = "1s0b@1>1"
+        (params,) = Params.parse_from_notation(notation)
+        self.assertEqual(mechanic_dyce_base(params, d2), H({1: 1, 2: 3}))
+
+        notation = "1s0b@1<1"
+        (params,) = Params.parse_from_notation(notation)
+        self.assertEqual(mechanic_dyce_base(params, d2), H({1: 3, 2: 1}))
+
+        notation = "1s0b@1+@1"
+        (params,) = Params.parse_from_notation(notation)
+        self.assertEqual(mechanic_dyce_base(params, d2), 2 * d2)
+
+        notation = "1s0b@1>1+@1"
+        (params,) = Params.parse_from_notation(notation)
+        self.assertEqual(mechanic_dyce_base(params, d2), H({2: 1, 4: 3}))
+
+        notation = "1s0b@1<1+@1"
+        (params,) = Params.parse_from_notation(notation)
+        self.assertEqual(mechanic_dyce_base(params, d2), H({2: 3, 4: 1}))
+
+        notation = "1s0b@1>1"
+        (params,) = Params.parse_from_notation(notation)
+        self.assertEqual(
+            mechanic_dyce_base(params, d6), H({1: 1, 2: 3, 3: 5, 4: 7, 5: 9, 6: 11})
+        )
+
+        notation = "1s0b@1<1"
+        (params,) = Params.parse_from_notation(notation)
+        self.assertEqual(
+            mechanic_dyce_base(params, d6), H({1: 11, 2: 9, 3: 7, 4: 5, 5: 3, 6: 1})
+        )
+
+        notation = "2s1b@2"
+        (params,) = Params.parse_from_notation(notation)
+        self.assertEqual(
+            mechanic_dyce_base(params, d6), H({1: 3, 2: 13, 3: 20, 4: 24, 5: 25, 6: 23})
+        )
+
+        notation = "1s2b@2"
+        (params,) = Params.parse_from_notation(notation)
+        self.assertEqual(
+            mechanic_dyce_base(params, d6), H({1: 1, 2: 15, 3: 29, 4: 43, 5: 57, 6: 71})
+        )
+
+        notation = "1s2b@1>1"
+        (params,) = Params.parse_from_notation(notation)
+        self.assertEqual(
+            mechanic_dyce_base(params, d6),
+            H({1: 7, 2: 57, 3: 98, 4: 118, 5: 105, 6: 47}),
+        )
+
+        notation = "1s2b@1<1"
+        (params,) = Params.parse_from_notation(notation)
+        self.assertEqual(
+            mechanic_dyce_base(params, d6),
+            H({1: 421, 2: 363, 3: 269, 4: 163, 5: 69, 6: 11}),
+        )
+
+        notation = "1s2b@1+@3"
+        (params,) = Params.parse_from_notation(notation)
+        self.assertEqual(
+            mechanic_dyce_base(params, d6),
+            H(
+                {
+                    2: 1,
+                    3: 4,
+                    4: 9,
+                    5: 16,
+                    6: 25,
+                    7: 36,
+                    8: 35,
+                    9: 32,
+                    10: 27,
+                    11: 20,
+                    12: 11,
+                }
+            ),
+        )
+
+        notation = "1s2b@1>1+@3"
+        (params,) = Params.parse_from_notation(notation)
+        self.assertEqual(
+            mechanic_dyce_base(params, d6),
+            H(
+                {
+                    2: 1,
+                    3: 4,
+                    4: 15,
+                    5: 35,
+                    6: 71,
+                    7: 123,
+                    8: 195,
+                    9: 239,
+                    10: 252,
+                    11: 220,
+                    12: 141,
+                }
+            ),
+        )
+
+        notation = "1s2b@1<1+@3"
+        (params,) = Params.parse_from_notation(notation)
+        self.assertEqual(
+            mechanic_dyce_base(params, d6),
+            H(
+                {
+                    2: 21,
+                    3: 80,
+                    4: 147,
+                    5: 208,
+                    6: 237,
+                    7: 216,
+                    8: 163,
+                    9: 112,
+                    10: 69,
+                    11: 32,
+                    12: 11,
+                }
+            ),
+        )
+
+
+if __name__ == "__main__":
+    unittest.main()
