@@ -2,7 +2,7 @@
   "jupyter-config-data": {
     "appName": "dyce-notebooks",
     "appUrl": "./lab",
-    "appVersion": "0.1.0-beta.22",
+    "appVersion": "0.1.0",
     "baseUrl": "./",
     "collaborative": false,
     "contentStorageDrivers": [
@@ -22,7 +22,7 @@
       {
         "extension": "./extension",
         "liteExtension": true,
-        "load": "static/remoteEntry.9769e16943c1366c4972.js",
+        "load": "static/remoteEntry.b340cae4b3c1bda6a7fd.js",
         "name": "@jupyterlite/pyodide-kernel-extension"
       },
       {
@@ -331,7 +331,7 @@
     "litePluginSettings": {
       "@jupyterlite/pyodide-kernel-extension:kernel": {
         "pipliteUrls": [
-          "./extensions/@jupyterlite/pyodide-kernel-extension/static/pypi/all.json?sha256=dada95d1039a199bb4503c6652605f7815ea056b19f3c08a6e78a0c5739f19d4"
+          "./extensions/@jupyterlite/pyodide-kernel-extension/static/pypi/all.json?sha256=55f1d3982adfce14adaebe30c941e4857226d00982e31d3c3a92acf14de17eac"
         ]
       }
     },
