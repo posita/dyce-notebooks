@@ -1,9 +1,12 @@
-from enum import IntEnum, auto
 from functools import cache
 
 import icepool
 from dyce import H
-from dyce.evaluation import _LimitT
+
+try:
+    from dyce.evaluation import LimitT
+except ImportError:
+    from dyce.evaluation import _LimitT as LimitT
 
 # Local imports
 from dyce_impl import Pool, _aggregate_exploded_deltas, _explosions_by_outcome
@@ -26,23 +29,23 @@ class IcepoolMechanic(icepool.MultisetEvaluator):
         self,
         params: Params,
         die: H,
-        explode_limit: _LimitT,
+        explode_limit: LimitT,
     ):
         self._params = params
         self._die = die
         self._explode_limit = explode_limit
-        self.pool_size = params.num_std + params.num_bump
+        self.pool_size = params.num_std + params.num_bmp
         self.extra_std = min(params.extra_std, self.pool_size)
-        self.extra_bump = min(params.extra_bump, self.pool_size)
+        self.extra_bmp = min(params.extra_bmp, self.pool_size)
 
         if params.extra_std:
             self._order = icepool.Order.Ascending
             self._roll_slice = slice(None, self.pool_size)
             self._extra_bonus = -2 * max(params.extra_std - self.pool_size, 0)
-        elif params.extra_bump:
+        elif params.extra_bmp:
             self._order = icepool.Order.Descending
             self._roll_slice = slice(-self.pool_size, None)
-            self._extra_bonus = 2 * max(params.extra_bump - self.pool_size, 0)
+            self._extra_bonus = 2 * max(params.extra_bmp - self.pool_size, 0)
         else:
             self._order = icepool.Order.Descending
             self._roll_slice = slice(None)
@@ -74,18 +77,18 @@ class IcepoolMechanic(icepool.MultisetEvaluator):
         )
 
     def next_state(
-        self, state: _StateT | None, outcome: int, std_count: int, bump_count: int
+        self, state: _StateT | None, outcome: int, std_count: int, bmp_count: int
     ) -> _StateT:
         if state is None:
             state = ()
 
         new_std = ((outcome, Pool.STANDARD),) * std_count
-        new_bump = ((outcome, Pool.BUMP),) * bump_count
+        new_bmp = ((outcome, Pool.BUMP),) * bmp_count
 
         if self._order is icepool.Order.Ascending:
-            return state + new_std + new_bump
+            return state + new_std + new_bmp
         elif self._order is icepool.Order.Descending:
-            return new_std + new_bump + state
+            return new_std + new_bmp + state
         else:
             assert False, "should never be here"
 
@@ -96,7 +99,7 @@ class IcepoolMechanic(icepool.MultisetEvaluator):
 def mechanic_icepool(
     params: Params,
     die: H,
-    explode_limit: _LimitT = 0,
+    explode_limit: LimitT = 0,
 ) -> H:
     r"""
     This has the same interface as ``#!python mechanic_dyce``, but translates primitives
@@ -104,8 +107,8 @@ def mechanic_icepool(
     """
     mechanic = IcepoolMechanic(params, die, explode_limit)
     p_std = icepool.Die(die).pool(params.num_std + mechanic.extra_std)
-    p_bump = icepool.Die(die).pool(params.num_bump + mechanic.extra_bump)
-    d_result = mechanic(p_std, p_bump)
+    p_bmp = icepool.Die(die).pool(params.num_bmp + mechanic.extra_bmp)
+    d_result = mechanic(p_std, p_bmp)
 
     return H(d_result).lowest_terms()
 
@@ -113,7 +116,7 @@ def mechanic_icepool(
 def mechanic_icepool_fudged(
     params: Params,
     die: H,
-    explode_limit: _LimitT = 0,
+    explode_limit: LimitT = 0,
 ) -> H:
     r"""
     This has the same interface as ``#!python mechanic_dyce``, but translates primitives
@@ -126,7 +129,7 @@ def mechanic_icepool_fudged(
 
 @cache
 def _explosions_by_outcome_icepool(
-    die: H, explode_limit: _LimitT
+    die: H, explode_limit: LimitT
 ) -> dict[int, icepool.Die]:
     return {
         outcome: icepool.Die(h)

@@ -4,16 +4,20 @@ from typing import Callable
 from anydyce import HPlotterChooser
 from anydyce.viz import PlotWidgets
 from dyce import H
-from dyce.evaluation import _LimitT
 from dyce_impl import mechanic_dyce_fudged
 from icepool_impl import mechanic_icepool, mechanic_icepool_fudged
 from IPython.display import display
 from ipywidgets import widgets
 
+try:
+    from dyce.evaluation import LimitT
+except ImportError:
+    from dyce.evaluation import _LimitT as LimitT
+
 # Local imports
 from params import Params
 
-_MechanicImplementationT = Callable[[Params, H, _LimitT], H]
+_MechanicImplementationT = Callable[[Params, H, LimitT], H]
 
 _IMPLEMENTATION_MAP: dict[str, _MechanicImplementationT] = {
     "dyce (explosions fudged within limit)": mechanic_dyce_fudged,
@@ -33,7 +37,7 @@ def showit(
     def _display(
         mechanic_implementation: _MechanicImplementationT,
         die: H,
-        explode_limit: _LimitT,
+        explode_limit: LimitT,
     ) -> None:
         chooser.update_hs(
             (
