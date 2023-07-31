@@ -30,8 +30,21 @@ def mechanic_dyce_base(params: Params, die: H) -> H:
     pool_size = params.num_std + params.num_bmp
     extra_std = min(params.extra_std, pool_size)
     extra_bmp = min(params.extra_bmp, pool_size)
-    p_std = (params.num_std + extra_std) @ P(die)
-    p_bmp = (params.num_bmp + extra_bmp) @ P(die)
+    # double each standard outcome (all even; assumes all outcomes are integers and support
+    # bit-wise operations)
+    p_std = (params.num_std + extra_std) @ P(
+        H(
+            (outcome << 1, count)  # faster than outcome * 2
+            for outcome, count in die.items()
+        )
+    )
+    # double each bump outcome and add one (all odd)
+    p_bmp = (params.num_bmp + extra_bmp) @ P(
+        H(
+            (outcome << 1 | 0x1, count)  # faster than outcome * 2 + 1
+            for outcome, count in die.items()
+        )
+    )
 
     if params.extra_std:
         extra_bonus = -2 * max(params.extra_std - pool_size, 0)
@@ -44,15 +57,10 @@ def mechanic_dyce_base(params: Params, die: H) -> H:
         roll_slice = slice(None, pool_size)
 
     def _mechanic(std: PResult, bmp: PResult | None = None):
-        # double each standard outcome (all even; assumes all outcomes are integers and support
-        # bit-wise operations)
-        roll = [outcome << 1 for outcome in std.roll]  # faster than outcome * 2
+        roll = list(std.roll)
 
         if bmp is not None:
-            # double each bump outcome and add one (all odd)
-            roll.extend(
-                outcome << 1 | 1 for outcome in bmp.roll  # faster than outcome * 2 + 1
-            )
+            roll.extend(bmp.roll)
             roll.sort()
             roll = roll[roll_slice]
 
