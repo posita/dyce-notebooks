@@ -1,3 +1,4 @@
+from enum import IntEnum, auto
 from functools import cache
 
 import icepool
@@ -9,11 +10,18 @@ except ImportError:
     from dyce.evaluation import _LimitT as LimitT
 
 # Local imports
-from dyce_impl import Pool, _aggregate_exploded_deltas, _explosions_by_outcome
+from dyce_impl import _aggregate_exploded_deltas, _explosions_by_outcome
 from params import Params
 
 __all__ = ()
 
+
+class Pool(IntEnum):
+    STANDARD = auto()
+    BUMP = auto()
+
+
+assert Pool.STANDARD < Pool.BUMP
 
 _StateT = tuple[tuple[int, Pool], ...]
 

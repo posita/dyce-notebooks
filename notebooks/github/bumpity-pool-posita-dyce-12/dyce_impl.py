@@ -1,9 +1,8 @@
 import unittest
-from enum import IntEnum, auto
 from functools import cache
 
 from dyce import H, P
-from dyce.evaluation import HResult, PResult, explode, foreach
+from dyce.evaluation import HResult, PResult, PWithSelection, explode, foreach
 
 try:
     from dyce.evaluation import LimitT
@@ -16,85 +15,89 @@ from params import Params
 __all__ = ()
 
 
-class Pool(IntEnum):
-    STANDARD = auto()
-    BUMP = auto()
-
-
-assert Pool.STANDARD < Pool.BUMP
-
-
-def mechanic_dyce_fudged(
-    params: Params,
-    die: H,
-    explode_limit: LimitT = 0,
-) -> H:
+def mechanic_dyce_fudged(params: Params, die: H, explode_limit: LimitT = 0) -> H:
     return mechanic_dyce_base(params, die) + _aggregate_exploded_deltas(
         die, explode_limit
     )
 
 
-def mechanic_dyce_base(
-    params: Params,
-    die: H,
-) -> H:
+def mechanic_dyce_base(params: Params, die: H) -> H:
     r"""
-    *set_die* is the zero-based index into each roll (i.e., on the interval ``#!python
-    [0, num_std + num_bmp)``) for determining the check die. *num_std* is how many of
-    *die* are in the standard pool. *num_bmp* is how many of *die* are in the bump pool.
-    Note this interface only allows for homogeneous pools. *bonus_dice* are an optional
-    sequence of zero-based indexes into each roll whose values are added to the total.
-    *explode_limit* has same meaning as ``#!python dyce.evaluation.expandable``.
+    *params* and *die* are used to describe the pool and mechanic constraints. Note this
+    interface only allows for homogeneous pools. *explode_limit* has same meaning as
+    ``#!python dyce.evaluation.expandable``.
     """
     pool_size = params.num_std + params.num_bmp
     extra_std = min(params.extra_std, pool_size)
     extra_bmp = min(params.extra_bmp, pool_size)
+    # double each standard outcome (all even; assumes all outcomes are integers and support
+    # bit-wise operations)
+    p_std = (params.num_std + extra_std) @ P(
+        H(
+            (outcome << 1, count)  # faster than outcome * 2
+            for outcome, count in die.items()
+        )
+    )
+    # double each bump outcome and add one (all odd)
+    p_bmp = (params.num_bmp + extra_bmp) @ P(
+        H(
+            (outcome << 1 | 0x1, count)  # faster than outcome * 2 + 1
+            for outcome, count in die.items()
+        )
+    )
 
     if params.extra_std:
         extra_bonus = -2 * max(params.extra_std - pool_size, 0)
-        roll_slice = slice(None, -extra_std)
+        roll_slice = slice(None, pool_size)
     elif params.extra_bmp:
         extra_bonus = 2 * max(params.extra_bmp - pool_size, 0)
-        roll_slice = slice(extra_bmp, None)
+        roll_slice = slice(-pool_size, None)
     else:
         extra_bonus = 0
-        roll_slice = slice(None)
-
-    p_std = (params.num_std + extra_std) @ P(die)
-    p_bmp = (params.num_bmp + extra_bmp) @ P(die)
+        roll_slice = slice(None, pool_size)
 
     def _mechanic(std: PResult, bmp: PResult | None = None):
-        roll = list((outcome, Pool.STANDARD) for outcome in std.roll)
+        roll = list(std.roll)
 
         if bmp is not None:
-            roll.extend((outcome, Pool.BUMP) for outcome in bmp.roll)
+            roll.extend(bmp.roll)
+            roll.sort()
+            roll = roll[roll_slice]
 
-        roll.sort()
-        roll = roll[roll_slice]
         assert len(roll) == pool_size
         check_die = params.set_die
-        check_outcome, set_type = roll[check_die]
+        shifted_check_outcome = roll[check_die]
 
-        if set_type is Pool.BUMP:
-            check_die = (check_die + 1) % len(roll)
-            check_outcome, _ = roll[check_die]
+        # check to see if the shifted check outcome is odd; if so, it's a bump die
+        if shifted_check_outcome & 0x1:  # faster than check_outcome % 2 == 1
+            check_die = (check_die + 1) % pool_size
+            shifted_check_outcome = roll[check_die]
 
-        total_outcome = check_outcome
+        # add the original value for the check outcome to the total
+        total_outcome = shifted_check_outcome >> 1  # faster than outcome // 2
 
         if check_die < params.set_die:
-            wrapped_outcome, _ = roll[params.set_die]
+            wrapped_outcome = roll[params.set_die] >> 1  # faster than outcome // 2
             total_outcome += wrapped_outcome
 
         return (
             total_outcome
-            + sum(roll[bonus_die][0] for bonus_die in params.bonus_dice)
+            # halve each bonus outcome (restores original value)
+            + sum(
+                roll[bonus_die] >> 1  # faster than outcome // 2
+                for bonus_die in params.bonus_dice
+            )
             + extra_bonus
         )
 
     if p_bmp:
-        unexploded_result = foreach(_mechanic, p_std, p_bmp)
+        unexploded_result = foreach(
+            _mechanic,
+            PWithSelection(p_std, (roll_slice,)),
+            PWithSelection(p_bmp, (roll_slice,)),
+        )
     else:
-        unexploded_result = foreach(_mechanic, p_std)
+        unexploded_result = foreach(_mechanic, PWithSelection(p_std, (roll_slice,)))
 
     return unexploded_result
 
@@ -168,8 +171,8 @@ class TestExplosions(unittest.TestCase):
 
 
 class TestMechanic(unittest.TestCase):
-    def test_base(self):
-        d2, d6 = H(2), H(6)
+    def test_base_simple(self):
+        d2 = H(2)
 
         notation = "1s0b@1"
         (params,) = Params.parse_from_notation(notation)
@@ -199,106 +202,106 @@ class TestMechanic(unittest.TestCase):
         (params,) = Params.parse_from_notation(notation)
         self.assertEqual(mechanic_dyce_base(params, d2), H({2: 3, 4: 1}))
 
-        notation = "1s0b@1>1"
-        (params,) = Params.parse_from_notation(notation)
-        self.assertEqual(
-            mechanic_dyce_base(params, d6), H({1: 1, 2: 3, 3: 5, 4: 7, 5: 9, 6: 11})
-        )
+    def test_base_options(self):
+        d6 = H(6)
 
-        notation = "1s0b@1<1"
-        (params,) = Params.parse_from_notation(notation)
-        self.assertEqual(
-            mechanic_dyce_base(params, d6), H({1: 11, 2: 9, 3: 7, 4: 5, 5: 3, 6: 1})
-        )
-
-        notation = "2s1b@2"
-        (params,) = Params.parse_from_notation(notation)
-        self.assertEqual(
-            mechanic_dyce_base(params, d6), H({1: 3, 2: 13, 3: 20, 4: 24, 5: 25, 6: 23})
-        )
-
-        notation = "1s2b@2"
-        (params,) = Params.parse_from_notation(notation)
-        self.assertEqual(
-            mechanic_dyce_base(params, d6), H({1: 1, 2: 15, 3: 29, 4: 43, 5: 57, 6: 71})
-        )
-
-        notation = "1s2b@1>1"
-        (params,) = Params.parse_from_notation(notation)
-        self.assertEqual(
-            mechanic_dyce_base(params, d6),
-            H({1: 7, 2: 57, 3: 98, 4: 118, 5: 105, 6: 47}),
-        )
-
-        notation = "1s2b@1<1"
-        (params,) = Params.parse_from_notation(notation)
-        self.assertEqual(
-            mechanic_dyce_base(params, d6),
-            H({1: 421, 2: 363, 3: 269, 4: 163, 5: 69, 6: 11}),
-        )
-
-        notation = "1s2b@1+@3"
-        (params,) = Params.parse_from_notation(notation)
-        self.assertEqual(
-            mechanic_dyce_base(params, d6),
-            H(
-                {
-                    2: 1,
-                    3: 4,
-                    4: 9,
-                    5: 16,
-                    6: 25,
-                    7: 36,
-                    8: 35,
-                    9: 32,
-                    10: 27,
-                    11: 20,
-                    12: 11,
-                }
+        for notation, expected in (
+            ("4s1b@4", H({1: 3, 2: 101, 3: 409, 4: 879, 5: 1283, 6: 1213})),
+            ("4s1b@3", H({1: 21, 2: 171, 3: 330, 4: 382, 5: 291, 6: 101})),
+            ("5s0b@1", H({1: 4651, 2: 2101, 3: 781, 4: 211, 5: 31, 6: 1})),
+            ("5s0b@3", H({1: 23, 2: 113, 3: 188, 4: 188, 5: 113, 6: 23})),
+            ("5s0b@5", H({1: 1, 2: 31, 3: 211, 4: 781, 5: 2101, 6: 4651})),
+            ("4s1b@1", H({1: 671, 2: 369, 3: 175, 4: 65, 5: 15, 6: 1})),
+            ("4s1b@2", H({1: 513, 2: 1199, 3: 1123, 4: 717, 5: 293, 6: 43})),
+            ("4s1b@3", H({1: 21, 2: 171, 3: 330, 4: 382, 5: 291, 6: 101})),
+            ("4s1b@4", H({1: 3, 2: 101, 3: 409, 4: 879, 5: 1283, 6: 1213})),
+            (
+                "4s1b@5",
+                H(
+                    {
+                        2: 16,
+                        3: 145,
+                        4: 591,
+                        5: 1666,
+                        6: 3790,
+                        7: 861,
+                        8: 435,
+                        9: 190,
+                        10: 66,
+                        11: 15,
+                        12: 1,
+                    }
+                ),
             ),
-        )
-
-        notation = "1s2b@1>1+@3"
-        (params,) = Params.parse_from_notation(notation)
-        self.assertEqual(
-            mechanic_dyce_base(params, d6),
-            H(
-                {
-                    2: 1,
-                    3: 4,
-                    4: 15,
-                    5: 35,
-                    6: 71,
-                    7: 123,
-                    8: 195,
-                    9: 239,
-                    10: 252,
-                    11: 220,
-                    12: 141,
-                }
+            ("1s0b@1>2", H({3: 1, 4: 3, 5: 5, 6: 7, 7: 9, 8: 11})),
+            ("1s0b@1<2", H({-1: 11, 0: 9, 1: 7, 2: 5, 3: 3, 4: 1})),
+            ("1s2b@2", H({1: 1, 2: 15, 3: 29, 4: 43, 5: 57, 6: 71})),
+            ("1s2b@1>1", H({1: 7, 2: 57, 3: 98, 4: 118, 5: 105, 6: 47})),
+            ("1s2b@1<1", H({1: 421, 2: 363, 3: 269, 4: 163, 5: 69, 6: 11})),
+            (
+                "1s2b@1+@3",
+                H(
+                    {
+                        2: 1,
+                        3: 4,
+                        4: 9,
+                        5: 16,
+                        6: 25,
+                        7: 36,
+                        8: 35,
+                        9: 32,
+                        10: 27,
+                        11: 20,
+                        12: 11,
+                    }
+                ),
             ),
-        )
-
-        notation = "1s2b@1<1+@3"
-        (params,) = Params.parse_from_notation(notation)
-        self.assertEqual(
-            mechanic_dyce_base(params, d6),
-            H(
-                {
-                    2: 21,
-                    3: 80,
-                    4: 147,
-                    5: 208,
-                    6: 237,
-                    7: 216,
-                    8: 163,
-                    9: 112,
-                    10: 69,
-                    11: 32,
-                    12: 11,
-                }
+            (
+                "1s2b@1>1+@3",
+                H(
+                    {
+                        2: 1,
+                        3: 4,
+                        4: 15,
+                        5: 35,
+                        6: 71,
+                        7: 123,
+                        8: 195,
+                        9: 239,
+                        10: 252,
+                        11: 220,
+                        12: 141,
+                    }
+                ),
             ),
-        )
+            (
+                "1s2b@1<1+@3",
+                H(
+                    {
+                        2: 21,
+                        3: 80,
+                        4: 147,
+                        5: 208,
+                        6: 237,
+                        7: 216,
+                        8: 163,
+                        9: 112,
+                        10: 69,
+                        11: 32,
+                        12: 11,
+                    }
+                ),
+            ),
+        ):
+            try:
+                (params,) = Params.parse_from_notation(notation)
+            except Exception as exc:
+                raise AssertionError(
+                    f"unable to parse notation ({notation!r})"
+                ) from exc
+
+            actual = mechanic_dyce_base(params, d6)
+            self.assertEqual(expected, actual, msg=f"notation = {notation!r}")
 
 
 if __name__ == "__main__":
