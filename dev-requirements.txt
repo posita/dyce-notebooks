@@ -79,10 +79,11 @@ cloudpickle==2.2.1
     # via
     #   -r build-requirements.txt
     #   doit
-comm==0.1.3
+comm==0.1.4
     # via
     #   -r build-requirements.txt
     #   ipykernel
+    #   ipywidgets
 contourpy==1.1.0
     # via
     #   -r build-requirements.txt
@@ -91,7 +92,7 @@ cycler==0.11.0
     # via
     #   -r build-requirements.txt
     #   matplotlib
-debugpy==1.6.7
+debugpy==1.6.8
     # via
     #   -r build-requirements.txt
     #   -r dev-requirements.in
@@ -112,7 +113,7 @@ doit==0.36.0
     # via
     #   -r build-requirements.txt
     #   jupyterlite-core
-dyce==0.6.0
+dyce==0.6.1
     # via anydyce
 exceptiongroup==1.1.2
     # via
@@ -128,11 +129,11 @@ fastjsonschema==2.18.0
     #   nbformat
 filelock==3.12.2
     # via virtualenv
-flake8==6.0.0
+flake8==6.1.0
     # via
     #   pyls-flake8
     #   python-lsp-server
-fonttools==4.41.1
+fonttools==4.42.0
     # via
     #   -r build-requirements.txt
     #   matplotlib
@@ -161,7 +162,6 @@ ipyevents==2.0.1
 ipykernel==6.25.0
     # via
     #   -r build-requirements.txt
-    #   ipywidgets
     #   jupyterlab
 ipympl==0.9.3
     # via -r build-requirements.txt
@@ -176,7 +176,7 @@ ipython-genutils==0.2.0
     # via
     #   -r build-requirements.txt
     #   ipympl
-ipywidgets==8.0.7
+ipywidgets==8.1.0
     # via
     #   -r build-requirements.txt
     #   anydyce
@@ -209,7 +209,7 @@ jsonpointer==2.4
     # via
     #   -r build-requirements.txt
     #   jsonschema
-jsonschema[format-nongpl]==4.18.4
+jsonschema[format-nongpl]==4.18.6
     # via
     #   -r build-requirements.txt
     #   jupyter-events
@@ -236,7 +236,7 @@ jupyter-core==5.3.1
     #   nbclient
     #   nbconvert
     #   nbformat
-jupyter-events==0.6.3
+jupyter-events==0.7.0
     # via
     #   -r build-requirements.txt
     #   jupyter-server
@@ -255,7 +255,7 @@ jupyter-server-terminals==0.4.4
     # via
     #   -r build-requirements.txt
     #   jupyter-server
-jupyterlab==4.0.3
+jupyterlab==4.0.4
     # via -r build-requirements.txt
 jupyterlab-pygments==0.2.2
     # via
@@ -273,7 +273,7 @@ jupyterlite-core==0.1.0
     # via
     #   -r build-requirements.txt
     #   jupyterlite-pyodide-kernel
-jupyterlite-pyodide-kernel==0.0.8
+jupyterlite-pyodide-kernel==0.0.10
     # via -r build-requirements.txt
 kiwisolver==1.4.4
     # via
@@ -316,13 +316,13 @@ nbconvert==7.7.3
     # via
     #   -r build-requirements.txt
     #   jupyter-server
-nbformat==5.9.1
+nbformat==5.9.2
     # via
     #   -r build-requirements.txt
     #   jupyter-server
     #   nbclient
     #   nbconvert
-nest-asyncio==1.5.6
+nest-asyncio==1.5.7
     # via
     #   -r build-requirements.txt
     #   ipykernel
@@ -332,9 +332,9 @@ notebook-shim==0.2.3
     # via
     #   -r build-requirements.txt
     #   jupyterlab
-numerary==0.4.3
+numerary==0.4.4
     # via dyce
-numpy==1.25.1
+numpy==1.25.2
     # via
     #   -r build-requirements.txt
     #   contourpy
@@ -365,7 +365,7 @@ parso==0.8.3
     # via
     #   -r build-requirements.txt
     #   jedi
-pathspec==0.11.1
+pathspec==0.11.2
     # via black
 pexpect==4.8.0
     # via
@@ -381,13 +381,13 @@ pillow==10.0.0
     #   ipycanvas
     #   ipympl
     #   matplotlib
-pip-tools==7.1.0
+pip-tools==7.2.0
     # via -r dev-requirements.in
 pkginfo==1.9.6
     # via
     #   -r build-requirements.txt
     #   jupyterlite-pyodide-kernel
-platformdirs==3.9.1
+platformdirs==3.10.0
     # via
     #   -r build-requirements.txt
     #   black
@@ -419,13 +419,13 @@ pure-eval==0.2.2
     # via
     #   -r build-requirements.txt
     #   stack-data
-pycodestyle==2.10.0
+pycodestyle==2.11.0
     # via flake8
 pycparser==2.21
     # via
     #   -r build-requirements.txt
     #   cffi
-pyflakes==3.0.1
+pyflakes==3.1.0
     # via flake8
 pygments==2.15.1
     # via
@@ -486,6 +486,7 @@ referencing==0.30.0
     #   -r build-requirements.txt
     #   jsonschema
     #   jsonschema-specifications
+    #   jupyter-events
 requests==2.31.0
     # via
     #   -r build-requirements.txt
