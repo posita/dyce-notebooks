@@ -10,7 +10,7 @@ d20 = H(20)
 class ContestType(Enum):
     PC_ATTACKS = auto()
     PC_DEFENDS = auto()
-    PC_V_PC = auto()
+    PC_VS_PC = auto()
 
 
 def expected_dmg_frm_rnd_pc_attacks(
