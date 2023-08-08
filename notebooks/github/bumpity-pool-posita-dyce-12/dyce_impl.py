@@ -2,12 +2,7 @@ import unittest
 from functools import cache
 
 from dyce import H, P
-from dyce.evaluation import HResult, PResult, PWithSelection, explode, foreach
-
-try:
-    from dyce.evaluation import LimitT
-except ImportError:
-    from dyce.evaluation import _LimitT as LimitT
+from dyce.evaluation import HResult, LimitT, PResult, PWithSelection, explode, foreach
 
 # Local imports
 from params import Params
@@ -34,14 +29,14 @@ def mechanic_dyce_base(params: Params, die: H) -> H:
     # bit-wise operations)
     p_std = (params.num_std + extra_std) @ P(
         H(
-            (outcome << 1, count)  # faster than outcome * 2
+            (outcome << 1, count)  # faster than outcome * 2  # type: ignore
             for outcome, count in die.items()
         )
     )
     # double each bump outcome and add one (all odd)
     p_bmp = (params.num_bmp + extra_bmp) @ P(
         H(
-            (outcome << 1 | 0x1, count)  # faster than outcome * 2 + 1
+            (outcome << 1 | 0x1, count)  # faster than outcome * 2 + 1  # type: ignore
             for outcome, count in die.items()
         )
     )
@@ -57,10 +52,10 @@ def mechanic_dyce_base(params: Params, die: H) -> H:
         roll_slice = slice(None, pool_size)
 
     def _mechanic(std: PResult, bmp: PResult | None = None):
-        roll = list(std.roll)
+        roll: list[int] = list(std.roll)  # type: ignore
 
         if bmp is not None:
-            roll.extend(bmp.roll)
+            roll.extend(bmp.roll)  # type: ignore
             roll.sort()
             roll = roll[roll_slice]
 
@@ -84,7 +79,7 @@ def mechanic_dyce_base(params: Params, die: H) -> H:
             total_outcome
             # halve each bonus outcome (restores original value)
             + sum(
-                roll[bonus_die] >> 1  # faster than outcome // 2
+                roll[bonus_die] >> 1  # faster than outcome // 2  # type: ignore
                 for bonus_die in params.bonus_dice
             )
             + extra_bonus

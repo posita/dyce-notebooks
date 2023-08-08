@@ -2,7 +2,7 @@ import re
 import traceback
 import unittest
 from dataclasses import dataclass
-from typing import ClassVar, Iterator
+from typing import ClassVar, Iterator, Optional
 
 from dyce import H
 
@@ -24,12 +24,16 @@ class Params:
     NOTATION_RE: ClassVar = re.compile(
         r"""
     ^
-    (?:\[(?P<override>[^]]+)\])?\s*
-    (?P<std>\+?[1-9]\d*)\s*s\s*
-    (?P<bmp>(?:\+?[1-9]\d*)?\d)\s*b\s*
-    @\s*(?P<set>\+?[1-9]\d*)\s*  # one-indexed (not zero-) for readability
-    (?:<\s*(?P<ex_std>\+?[1-9]\d*)|>\s*(?P<ex_bmp>\+?[1-9]\d*))?\s*
-    (?P<bonuses>(?:\+\s*@\s*\+?[1-9]\d*\s*)*)  # one-indexed (not zero-) for readability
+    (?:
+      (?:\[(?P<override>[^]]+)\])?\s*
+      (?P<std>\+?[1-9]\d*)\s*s\s*
+      (?P<bmp>(?:\+?[1-9]\d*)?\d)\s*b\s*
+      @\s*(?P<set>\+?[1-9]\d*)\s*  # one-indexed (not zero-) for readability
+      (?:<\s*(?P<ex_std>\+?[1-9]\d*)|>\s*(?P<ex_bmp>\+?[1-9]\d*))?\s*
+      (?P<bonuses>(?:\+\s*@\s*\+?[1-9]\d*\s*)*)  # one-indexed (not zero-) for readability
+    |
+      (?P<null><null>)\s*
+    )
     (?:\#\s*(?P<comment>.*))?
     $
     """,
@@ -44,7 +48,7 @@ class Params:
         cls,
         s: str,
         override_die_map: dict[str, H] | None = None,
-    ) -> Iterator["Params"]:
+    ) -> Iterator[Optional["Params"]]:
         for line in s.split("\n"):
             line = line.strip()
 
@@ -54,6 +58,10 @@ class Params:
             m = cls.NOTATION_RE.match(line)
 
             if not m:
+                continue
+
+            if m.group("null"):
+                yield None
                 continue
 
             try:
@@ -444,6 +452,16 @@ class TestParams(unittest.TestCase):
                     override_die_str,
                     msg=f"notation = {notation!r}",
                 )
+
+    def test_notation_null(self):
+        notation = "<null>  # spacer"
+
+        try:
+            (params,) = Params.parse_from_notation(notation)
+        except Exception as exc:
+            raise AssertionError(f"unable to parse notation ({notation!r})") from exc
+
+        self.assertIsNone(params)
 
 
 if __name__ == "__main__":

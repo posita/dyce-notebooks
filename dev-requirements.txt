@@ -4,7 +4,7 @@
 #
 #    pip-compile dev-requirements.in
 #
-anydyce==0.4.1
+anydyce==0.4.4
     # via -r dev-requirements.in
 anyio==3.7.1
     # via
@@ -92,7 +92,7 @@ cycler==0.11.0
     # via
     #   -r build-requirements.txt
     #   matplotlib
-debugpy==1.6.8
+debugpy==1.6.7
     # via
     #   -r build-requirements.txt
     #   -r dev-requirements.in
@@ -113,7 +113,7 @@ doit==0.36.0
     # via
     #   -r build-requirements.txt
     #   jupyterlite-core
-dyce==0.6.1
+dyce==0.6.2
     # via anydyce
 exceptiongroup==1.1.2
     # via
@@ -159,7 +159,7 @@ ipycanvas==0.13.1
     # via -r build-requirements.txt
 ipyevents==2.0.1
     # via -r build-requirements.txt
-ipykernel==6.25.0
+ipykernel==6.25.1
     # via
     #   -r build-requirements.txt
     #   jupyterlab
@@ -209,7 +209,7 @@ jsonpointer==2.4
     # via
     #   -r build-requirements.txt
     #   jsonschema
-jsonschema[format-nongpl]==4.18.6
+jsonschema[format-nongpl]==4.19.0
     # via
     #   -r build-requirements.txt
     #   jupyter-events
@@ -341,7 +341,7 @@ numpy==1.25.2
     #   ipycanvas
     #   ipympl
     #   matplotlib
-overrides==7.3.1
+overrides==7.4.0
     # via
     #   -r build-requirements.txt
     #   jupyter-server
@@ -427,7 +427,7 @@ pycparser==2.21
     #   cffi
 pyflakes==3.1.0
     # via flake8
-pygments==2.15.1
+pygments==2.16.1
     # via
     #   -r build-requirements.txt
     #   ipython
@@ -481,7 +481,7 @@ pyzmq==25.1.0
     #   ipykernel
     #   jupyter-client
     #   jupyter-server
-referencing==0.30.0
+referencing==0.30.2
     # via
     #   -r build-requirements.txt
     #   jsonschema
@@ -615,7 +615,7 @@ websocket-client==1.6.1
     # via
     #   -r build-requirements.txt
     #   jupyter-server
-wheel==0.41.0
+wheel==0.41.1
     # via pip-tools
 widgetsnbextension==4.0.8
     # via
