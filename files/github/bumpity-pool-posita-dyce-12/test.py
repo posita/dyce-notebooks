@@ -3,11 +3,7 @@ from fractions import Fraction
 from time import time
 
 from dyce import H
-
-try:
-    from dyce.evaluation import LimitT
-except ImportError:
-    from dyce.evaluation import _LimitT as LimitT
+from dyce.evaluation import LimitT
 
 # Local imports
 from dyce_impl import Params, mechanic_dyce_fudged
@@ -40,6 +36,9 @@ def main() -> None:
                 f"\nignoring poorly formed notation {notation!r}: {exc}",
                 file=sys.stderr,
             )
+            continue
+
+        if params is None:
             continue
 
         print(f"\n= = = = <([    {params!s}    ])> = = = =")

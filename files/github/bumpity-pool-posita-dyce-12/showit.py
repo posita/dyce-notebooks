@@ -4,15 +4,11 @@ from typing import Callable
 from anydyce import HPlotterChooser
 from anydyce.viz import PlotWidgets
 from dyce import H
+from dyce.evaluation import LimitT
 from dyce_impl import mechanic_dyce_fudged
 from icepool_impl import mechanic_icepool, mechanic_icepool_fudged
 from IPython.display import display
 from ipywidgets import widgets
-
-try:
-    from dyce.evaluation import LimitT
-except ImportError:
-    from dyce.evaluation import _LimitT as LimitT
 
 # Local imports
 from params import Params
@@ -39,25 +35,20 @@ def showit(
         die: H,
         explode_limit: LimitT,
     ) -> None:
-        chooser.update_hs(
-            (
-                (
-                    f"{params.comment if params.comment else params!s}\nmean: {h.mean():0.02f}\nstdev: {h.stdev():0.02f}",
-                    h,
-                )
-                for params, h in (
-                    (
+        def _hs_gen():
+            for params in Params.parse_from_notation(notations, die_map):
+                if params is None:
+                    yield None
+                else:
+                    h = mechanic_implementation(
                         params,
-                        mechanic_implementation(
-                            params,
-                            params.override_die if params.override_die else die,
-                            explode_limit,
-                        ),
+                        params.override_die if params.override_die else die,
+                        explode_limit,
                     )
-                    for params in Params.parse_from_notation(notations, die_map)
-                )
-            ),
-        )
+                    desc = f"{params.comment if params.comment else params!s}\nmean: {h.mean():0.02f}\nstdev: {h.stdev():0.02f}"
+                    yield desc, h
+
+        chooser.update_hs(_hs_gen())
 
     implementation_widget = widgets.Dropdown(
         value=mechanic_dyce_fudged,

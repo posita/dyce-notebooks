@@ -50,7 +50,7 @@ def showit():
                 arm=arm,
                 rof=rof,
             )
-        elif contest_type is ContestType.PC_V_PC:
+        elif contest_type is ContestType.PC_VS_PC:
             th_mod_widget.layout.visibility = "visible"
             th_target_widget.layout.visibility = "hidden"
             dc_mod_widget.layout.visibility = "visible"
@@ -79,7 +79,7 @@ def showit():
         options=(
             ("PC attacking", ContestType.PC_ATTACKS),
             ("PC defending", ContestType.PC_DEFENDS),
-            ("PC v. PC", ContestType.PC_V_PC),
+            ("PC vs. PC", ContestType.PC_VS_PC),
         ),
     )
 

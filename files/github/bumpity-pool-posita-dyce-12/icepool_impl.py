@@ -3,11 +3,7 @@ from functools import cache
 
 import icepool
 from dyce import H
-
-try:
-    from dyce.evaluation import LimitT
-except ImportError:
-    from dyce.evaluation import _LimitT as LimitT
+from dyce.evaluation import LimitT
 
 # Local imports
 from dyce_impl import _aggregate_exploded_deltas, _explosions_by_outcome
