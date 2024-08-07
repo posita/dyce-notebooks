@@ -2,7 +2,7 @@
   "jupyter-config-data": {
     "appName": "dyce-notebooks",
     "appUrl": "./lab",
-    "appVersion": "0.1.0",
+    "appVersion": "0.4.0",
     "baseUrl": "./",
     "collaborative": false,
     "contentStorageDrivers": [
@@ -15,38 +15,14 @@
     "federated_extensions": [
       {
         "extension": "./extension",
-        "liteExtension": false,
-        "load": "static/remoteEntry.98b8a827bfc5f86e95d2.js",
-        "name": "@jupyter-widgets/jupyterlab-manager"
-      },
-      {
-        "extension": "./extension",
         "liteExtension": true,
-        "load": "static/remoteEntry.89125e4a0ee946ab8354.js",
+        "load": "static/remoteEntry.e96be077d96e844d0c72.js",
         "name": "@jupyterlite/pyodide-kernel-extension"
       },
       {
         "extension": "./extension",
         "liteExtension": false,
-        "load": "static/remoteEntry.9693baf6fc7fc4c880d2.js",
-        "name": "ipycanvas"
-      },
-      {
-        "extension": "./extension",
-        "liteExtension": false,
-        "load": "static/remoteEntry.176149dcbfb677ea36fb.js",
-        "name": "ipyevents"
-      },
-      {
-        "extension": "./extension",
-        "liteExtension": false,
-        "load": "static/remoteEntry.2245c790a510bf1865ea.js",
-        "name": "jupyter-matplotlib"
-      },
-      {
-        "extension": "./extension",
-        "liteExtension": false,
-        "load": "static/remoteEntry.aa1060b2d1221f8e5688.js",
+        "load": "static/remoteEntry.5cbb9d2323598fbda535.js",
         "name": "jupyterlab_pygments",
         "style": "./style"
       }
@@ -325,17 +301,15 @@
       }
     },
     "fullLabextensionsUrl": "./extensions",
-    "fullMathjaxUrl": "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js",
     "fullStaticUrl": "./build",
     "licensesUrl": "./lab/api/licenses",
     "litePluginSettings": {
       "@jupyterlite/pyodide-kernel-extension:kernel": {
         "pipliteUrls": [
-          "./extensions/@jupyterlite/pyodide-kernel-extension/static/pypi/all.json?sha256=bd7389fdc262730e885502fde86c4ec0412d30fbfcff70438bb882a3583531c6"
+          "./extensions/@jupyterlite/pyodide-kernel-extension/static/pypi/all.json?sha256=6e57b48fb2d299264f057f2f32f94af3ec2dc8436134efac11d0e8fef64adec1"
         ]
       }
     },
-    "mathjaxConfig": "TeX-AMS_CHTML-full,Safe",
     "settingsStorageDrivers": [
       "memoryStorageDriver"
     ]
