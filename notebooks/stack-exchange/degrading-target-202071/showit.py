@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Dict, Optional, Tuple
+from typing import Optional
 
 from anydyce import HPlotterChooser
 from degrading_target import (
@@ -41,7 +41,7 @@ class AdjMethod(str, Enum):
     CUSTOM = "Custom Implementation"
 
 
-ADJ_METHOD_MAP: Dict[AdjMethod, AdjustedTargetT] = {
+ADJ_METHOD_MAP: dict[AdjMethod, AdjustedTargetT] = {
     AdjMethod.REDUCE_ONCE_PER_TRY: reduce_once_per_try,
     AdjMethod.REDUCE_TWICE_PER_TRY: reduce_twice_per_try,
 }
@@ -206,7 +206,7 @@ def showit():
 
 def _grab_adj_method_custom(
     value: str,
-) -> Tuple[AdjustedTargetT, Optional[Exception]]:
+) -> tuple[AdjustedTargetT, Optional[Exception]]:
     adj_method_globals = {"H": H, "_": ADJ_METHOD_MAP[DEFAULT_ADJ_METHOD]}
 
     try:
@@ -226,7 +226,7 @@ def _grab_adj_method_custom(
         return adj_method_func, exc
 
 
-def _grab_die_custom(value: str) -> Tuple[H, Optional[Exception]]:
+def _grab_die_custom(value: str) -> tuple[H, Optional[Exception]]:
     try:
         return H(eval(value, {"H": H})), None
     except Exception as exc:

@@ -1,5 +1,5 @@
 --requirement build-requirements.txt
-anydyce~=0.4.0
+anydyce~=0.4.6
 debugpy
 icepool~=1.0
 line_profiler[ipython]
