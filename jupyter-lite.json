@@ -15,9 +15,33 @@
     "federated_extensions": [
       {
         "extension": "./extension",
+        "liteExtension": false,
+        "load": "static/remoteEntry.5586bbdee77c5d90dd3c.js",
+        "name": "@jupyter-widgets/jupyterlab-manager"
+      },
+      {
+        "extension": "./extension",
         "liteExtension": true,
         "load": "static/remoteEntry.e96be077d96e844d0c72.js",
         "name": "@jupyterlite/pyodide-kernel-extension"
+      },
+      {
+        "extension": "./extension",
+        "liteExtension": false,
+        "load": "static/remoteEntry.aeedc0e842f9b77326e5.js",
+        "name": "ipycanvas"
+      },
+      {
+        "extension": "./extension",
+        "liteExtension": false,
+        "load": "static/remoteEntry.4d5ef87d14f03accc582.js",
+        "name": "ipyevents"
+      },
+      {
+        "extension": "./extension",
+        "liteExtension": false,
+        "load": "static/remoteEntry.a0518cb14ef99e994963.js",
+        "name": "jupyter-matplotlib"
       },
       {
         "extension": "./extension",
