@@ -1,3 +1,7 @@
-jupyter_server
+ipycanvas
+ipyevents
+ipympl
+ipywidgets
+jupyterlab_server
 jupyterlite-pyodide-kernel
 jupyterlite~=0.3
