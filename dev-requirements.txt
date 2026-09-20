@@ -130,7 +130,7 @@ fqdn==1.5.1
     # via
     #   -r build-requirements.txt
     #   jsonschema
-icepool==1.4.0
+icepool==2.1.3
     # via -r dev-requirements.in
 identify==2.6.0
     # via pre-commit
