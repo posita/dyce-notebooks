@@ -332,7 +332,7 @@ pexpect==4.9.0
     # via
     #   -r build-requirements.txt
     #   ipython
-pillow==10.4.0
+pillow==12.3.0
     # via
     #   -r build-requirements.txt
     #   ipycanvas
