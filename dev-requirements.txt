@@ -251,8 +251,10 @@ kiwisolver==1.4.5
     # via
     #   -r build-requirements.txt
     #   matplotlib
-line-profiler[ipython]==4.1.3
-    # via -r dev-requirements.in
+line-profiler[ipython]==5.0.2
+    # via
+    #   -r dev-requirements.in
+    #   line-profiler
 markupsafe==2.1.5
     # via
     #   -r build-requirements.txt
@@ -500,6 +502,7 @@ tomli==2.0.1
     # via
     #   black
     #   build
+    #   line-profiler
     #   mypy
     #   pip-tools
     #   pylsp-mypy
@@ -536,6 +539,7 @@ typing-extensions==4.12.2
     #   anyio
     #   black
     #   ipython
+    #   line-profiler
     #   mypy
 ujson==5.10.0
     # via
