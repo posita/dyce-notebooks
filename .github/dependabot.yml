@@ -12,3 +12,13 @@ updates:
     groups:
       github-actions:
         patterns: ["*"]
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      python-packages:
+        patterns: ["*"]
+        update-types:
+          - minor
+          - patch
