@@ -505,7 +505,7 @@ tomli==2.0.1
     #   pylsp-mypy
     #   python-lsp-black
     #   pytoolconfig
-tornado==6.4.1
+tornado==6.5.8
     # via
     #   -r build-requirements.txt
     #   jupyter-client
