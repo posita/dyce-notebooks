@@ -42,7 +42,9 @@ beautifulsoup4==4.12.3
     #   -r build-requirements.txt
     #   nbconvert
 black==24.8.0
-    # via python-lsp-black
+    # via
+    #   python-lsp-black
+    #   python-lsp-server
 bleach==6.1.0
     # via
     #   -r build-requirements.txt
@@ -83,7 +85,7 @@ cycler==0.12.1
     # via
     #   -r build-requirements.txt
     #   matplotlib
-debugpy==1.8.5
+debugpy==1.8.22
     # via -r dev-requirements.in
 decorator==5.1.1
     # via
@@ -144,11 +146,11 @@ importlib-metadata==8.2.0
     # via
     #   -r build-requirements.txt
     #   doit
-ipycanvas==0.13.2
+ipycanvas==0.14.3
     # via -r build-requirements.txt
-ipyevents==2.0.2
+ipyevents==2.0.4
     # via -r build-requirements.txt
-ipympl==0.9.4
+ipympl==0.10.0
     # via -r build-requirements.txt
 ipython==8.26.0
     # via
@@ -156,11 +158,7 @@ ipython==8.26.0
     #   ipympl
     #   ipywidgets
     #   line-profiler
-ipython-genutils==0.2.0
-    # via
-    #   -r build-requirements.txt
-    #   ipympl
-ipywidgets==8.1.3
+ipywidgets==8.1.9
     # via
     #   -r build-requirements.txt
     #   anydyce
@@ -232,20 +230,20 @@ jupyterlab-pygments==0.3.0
     # via
     #   -r build-requirements.txt
     #   nbconvert
-jupyterlab-server==2.27.3
+jupyterlab-server==2.28.1
     # via -r build-requirements.txt
-jupyterlab-widgets==3.0.11
+jupyterlab-widgets==3.0.17
     # via
     #   -r build-requirements.txt
     #   ipywidgets
 jupyterlite==0.4.0
     # via -r build-requirements.txt
-jupyterlite-core==0.4.0
+jupyterlite-core==0.8.3
     # via
     #   -r build-requirements.txt
     #   jupyterlite
     #   jupyterlite-pyodide-kernel
-jupyterlite-pyodide-kernel==0.4.1
+jupyterlite-pyodide-kernel==0.8.6
     # via -r build-requirements.txt
 kiwisolver==1.4.5
     # via
@@ -338,7 +336,7 @@ pillow==10.4.0
     #   ipycanvas
     #   ipympl
     #   matplotlib
-pip-tools==7.4.1
+pip-tools==7.6.1
     # via -r dev-requirements.in
 pkginfo==1.11.1
     # via
@@ -389,9 +387,9 @@ pyls-flake8==0.4.0
     # via -r dev-requirements.in
 pyls-isort==0.2.2
     # via -r dev-requirements.in
-pylsp-mypy==0.6.8
+pylsp-mypy==0.8.0
     # via -r dev-requirements.in
-pylsp-rope==0.1.16
+pylsp-rope==0.1.17
     # via -r dev-requirements.in
 pyparsing==3.1.2
     # via
@@ -415,7 +413,7 @@ python-lsp-black==2.0.0
     # via -r dev-requirements.in
 python-lsp-jsonrpc==1.1.2
     # via python-lsp-server
-python-lsp-server[flake8,rope]==1.11.0
+python-lsp-server[flake8,rope]==1.15.0
     # via
     #   -r dev-requirements.in
     #   pyls-flake8
@@ -537,6 +535,7 @@ typing-extensions==4.12.2
     #   black
     #   ipython
     #   mypy
+    #   pip-tools
 ujson==5.10.0
     # via
     #   python-lsp-jsonrpc
@@ -570,7 +569,7 @@ websocket-client==1.8.0
     #   jupyter-server
 wheel==0.44.0
     # via pip-tools
-widgetsnbextension==4.0.11
+widgetsnbextension==4.0.16
     # via
     #   -r build-requirements.txt
     #   ipywidgets
