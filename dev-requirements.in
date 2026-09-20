@@ -1,7 +1,7 @@
 --requirement build-requirements.txt
 anydyce~=0.4.6
 debugpy
-icepool~=1.0
+icepool~=2.1
 line_profiler[ipython]
 pip-tools
 pre-commit
