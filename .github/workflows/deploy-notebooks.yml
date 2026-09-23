@@ -11,9 +11,14 @@ on:
       - 'jupyter*.json'
       - 'notebooks/**'
 
+permissions:
+  contents: read
+
 jobs:
 
   deploy:
+    permissions:
+      contents: write
     concurrency:
       group: ${{ github.ref }}
       cancel-in-progress: true
