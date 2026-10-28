@@ -45,7 +45,7 @@ black==26.10.1
     # via
     #   python-lsp-black
     #   python-lsp-server
-bleach==6.1.0
+bleach[css]==6.1.0
     # via
     #   -r build-requirements.txt
     #   nbconvert
@@ -250,9 +250,7 @@ kiwisolver==1.4.5
     #   -r build-requirements.txt
     #   matplotlib
 line-profiler[ipython]==5.0.2
-    # via
-    #   -r dev-requirements.in
-    #   line-profiler
+    # via -r dev-requirements.in
 markupsafe==2.1.5
     # via
     #   -r build-requirements.txt
@@ -283,7 +281,7 @@ nbclient==0.10.0
     # via
     #   -r build-requirements.txt
     #   nbconvert
-nbconvert==7.16.4
+nbconvert==7.17.2
     # via
     #   -r build-requirements.txt
     #   jupyter-server
@@ -490,10 +488,10 @@ terminado==0.18.1
     #   -r build-requirements.txt
     #   jupyter-server
     #   jupyter-server-terminals
-tinycss2==1.3.0
+tinycss2==1.2.1
     # via
     #   -r build-requirements.txt
-    #   nbconvert
+    #   bleach
 tomli==2.0.1
     # via
     #   black
